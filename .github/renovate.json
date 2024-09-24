@@ -1,0 +1,17 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"schedule": ["before 4am on Monday"],
+	"extends": [
+		":semanticPrefixFixDepsChoreOthers",
+		":automergeRequireAllStatusChecks",
+		":separateMultipleMajorReleases",
+		":disableDependencyDashboard",
+		":ignoreModulesAndTests",
+		":automergeAll",
+		":automergePr",
+		"group:monorepos",
+		"group:recommended",
+		"replacements:all",
+		"workarounds:all"
+	]
+}
