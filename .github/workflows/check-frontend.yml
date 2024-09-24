@@ -28,8 +28,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.node-version'
+          node-version-file: 'link-base/.node-version'
           cache: 'pnpm'
+          cache-dependency-path: 'link-base/pnpm-lock.yaml'
 
       - name: Install dependencies
         run: pnpm install

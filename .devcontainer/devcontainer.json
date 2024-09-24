@@ -18,5 +18,5 @@
 			]
 		}
 	},
-	"postCreateCommand": "pnpm install"
+	"postCreateCommand": "cd link-base && pnpm install"
 }
