@@ -30,7 +30,7 @@ jobs:
         with:
           node-version-file: 'link-base/.node-version'
           cache: 'pnpm'
-          cache-dependency-path: '/link-base/pnpm-lock.yaml'
+          cache-dependency-path: 'link-base/pnpm-lock.yaml'
 
       - name: Install dependencies
         run: pnpm install
