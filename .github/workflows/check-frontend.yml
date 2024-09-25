@@ -36,7 +36,7 @@ jobs:
         run: pnpm install
 
       - name: Check Svelte
-        run: pnpm run check
+        run: pnpm run check:svelte
 
       - name: Check Format
         run: pnpm run check:format
