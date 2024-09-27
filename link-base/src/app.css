@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+	@apply bg-stone-900;
+	@apply font-sans;
+}
+
+@font-face {
+	font-family: 'Geist';
+	font-display: swap;
+	src:
+		local('Geist'),
+		url(/font/Geist.woff2) format('woff2');
+}
