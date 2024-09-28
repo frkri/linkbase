@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 body {
-	@apply bg-stone-900;
-	@apply font-sans;
+	@apply bg-neutral-200 text-stone-900 dark:bg-stone-900 dark:text-neutral-200;
+	@apply font-sans text-base font-normal;
+}
+
+*::selection {
+	@apply bg-rose-600;
 }
 
 @font-face {
