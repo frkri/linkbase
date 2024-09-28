@@ -1,0 +1,25 @@
+{
+	"short_name": "LinkBase",
+	"name": "LinkBase",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "128x128",
+			"type": "image/svg+xml"
+		},
+		{
+			"src": "/favicon-light-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/favicon-light-128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		}
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#1c1917",
+	"background_color": "#1c1917"
+}
