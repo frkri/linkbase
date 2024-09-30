@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>LinkBase</title>
+	<title>linkbase</title>
 </svelte:head>
 
 <main>
