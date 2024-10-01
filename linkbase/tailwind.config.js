@@ -6,7 +6,8 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		fontFamily: {
-			sans: ['Geist', 'sans-serif']
+			sans: ['Geist', 'sans-serif'],
+			mono: ['Jetbrains Mono', 'monospace']
 		},
 		extend: {}
 	},
