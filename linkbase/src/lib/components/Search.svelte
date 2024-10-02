@@ -27,11 +27,12 @@
 <div
 	class="flex h-10 items-center rounded border border-neutral-500 border-opacity-40 transition *:h-full focus-within:border-opacity-100"
 >
-	<Search class="mx-2 w-4 stroke-neutral-400" />
+	<Search class="mx-2 w-5 stroke-neutral-500" />
 	<input
-		class="grow bg-transparent outline-none placeholder:text-neutral-500"
+		class="grow bg-transparent outline-none placeholder:font-medium placeholder:text-neutral-500"
 		type="search"
 		autocomplete="off"
+		spellcheck="false"
 		placeholder="Search"
 		{...props}
 		bind:value={searchValue}
@@ -45,5 +46,15 @@
 		>
 			<X class="w-4 stroke-neutral-600 dark:stroke-neutral-200" />
 		</button>
+	{:else if focusShortcut}
+		<span class="m-2 flex max-h-6 flex-row gap-1">
+			{#each ['CTRL', 'K'] as key}
+				<kbd
+					class="flex items-center justify-center rounded bg-stone-300 p-2 font-mono text-xs font-semibold dark:bg-stone-800"
+				>
+					{key}
+				</kbd>
+			{/each}
+		</span>
 	{/if}
 </div>
