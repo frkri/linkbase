@@ -28,10 +28,10 @@
 <div
 	class="flex h-10 items-center rounded border border-neutral-500 border-opacity-40 transition *:h-full focus-within:border-opacity-100"
 >
-	<Search class="mx-2 w-5 stroke-neutral-500" />
+	<Search class="mx-2 h-4 min-h-4 w-4 min-w-4 stroke-neutral-500" />
 	<input
 		autocomplete="off"
-		class="grow bg-transparent outline-none placeholder:font-medium placeholder:text-neutral-500"
+		class="min-w-0 grow bg-transparent outline-none placeholder:font-medium placeholder:text-neutral-500"
 		placeholder="Search"
 		spellcheck="false"
 		type="search"
@@ -45,10 +45,10 @@
 			onclick={() => (searchValue = '')}
 			type="button"
 		>
-			<X class="w-4 stroke-neutral-600 dark:stroke-neutral-200" />
+			<X class="mx-1 w-4 stroke-neutral-600 dark:stroke-neutral-200" />
 		</button>
 	{:else if focusShortcut}
-		<span class="m-2 flex max-h-6 flex-row gap-1">
+		<span class="mx-1 flex max-h-6 flex-row gap-1">
 			{#each ['CTRL', 'K'] as key}
 				<kbd
 					class="flex items-center justify-center rounded bg-stone-300 p-2 font-mono text-xs font-semibold dark:bg-stone-800"

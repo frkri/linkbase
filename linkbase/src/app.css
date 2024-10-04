@@ -8,7 +8,7 @@ body {
 }
 
 *::selection {
-	@apply bg-rose-600;
+	@apply bg-rose-300 dark:bg-rose-800;
 }
 
 @font-face {
