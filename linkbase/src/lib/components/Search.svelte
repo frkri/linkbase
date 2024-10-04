@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
+
 	import { Search, X } from 'lucide-svelte';
 
 	let {
-		searchValue = $bindable(''),
 		focusShortcut = false,
+		searchValue = $bindable(''),
 		...props
 	}: {
 		focusShortcut?: boolean;
@@ -29,20 +30,20 @@
 >
 	<Search class="mx-2 w-5 stroke-neutral-500" />
 	<input
-		class="grow bg-transparent outline-none placeholder:font-medium placeholder:text-neutral-500"
-		type="search"
 		autocomplete="off"
-		spellcheck="false"
+		class="grow bg-transparent outline-none placeholder:font-medium placeholder:text-neutral-500"
 		placeholder="Search"
+		spellcheck="false"
+		type="search"
 		{...props}
-		bind:value={searchValue}
 		bind:this={inputElement}
+		bind:value={searchValue}
 	/>
 	{#if searchValue.length !== 0}
 		<button
 			class="pr-2 opacity-60 outline-none hocus:opacity-100"
-			type="button"
 			onclick={() => (searchValue = '')}
+			type="button"
 		>
 			<X class="w-4 stroke-neutral-600 dark:stroke-neutral-200" />
 		</button>

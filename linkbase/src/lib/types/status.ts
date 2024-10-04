@@ -1,6 +1,6 @@
 export enum Status {
-    none,
-    pending,
-    success,
-    error
+	none,
+	pending,
+	success,
+	error
 }

@@ -4,16 +4,16 @@ const plugin = require('tailwindcss/plugin');
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-	theme: {
-		fontFamily: {
-			sans: ['Geist', 'sans-serif'],
-			mono: ['Jetbrains Mono', 'monospace']
-		},
-		extend: {}
-	},
 	plugins: [
 		plugin(function ({ addVariant }) {
 			addVariant('hocus', ['&:hover', '&:focus']);
 		})
-	]
+	],
+	theme: {
+		extend: {},
+		fontFamily: {
+			mono: ['Jetbrains Mono', 'monospace'],
+			sans: ['Geist', 'sans-serif']
+		}
+	}
 };

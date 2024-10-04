@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+
 	import { Button, type ButtonProps } from 'bits-ui';
 
 	let {
