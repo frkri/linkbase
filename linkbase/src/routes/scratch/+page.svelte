@@ -1,12 +1,10 @@
 <script>
-	import Header from '$lib/components/Header.svelte';
 	import Search from '$lib/components/Search.svelte';
 
 	let searchValue = '';
 </script>
 
-<div class="flex flex-col gap-8">
-	<Header />
+<div class="flex flex-col">
 	<Search bind:searchValue focusShortcut={true} />
 	Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore nobis et, ducimus sapiente temporibus
 	error. Nobis aliquam voluptatum reiciendis, repudiandae dolorum quisquam. Voluptates quaerat obcaecati

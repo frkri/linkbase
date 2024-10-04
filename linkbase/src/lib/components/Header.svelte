@@ -2,31 +2,31 @@
 	import Favicon from '$lib/assets/Favicon.svelte';
 	import { fade } from 'svelte/transition';
 
-	let hasScrolledPast = $state(false);
+	let isPinned = $state(false);
+	let divElement: HTMLElement;
 	$effect(() => {
-		let topPixel = document.getElementById('top-pixel');
-		if (!topPixel) return;
-
-		let scrollObserver = new IntersectionObserver((entries) => {
-			hasScrolledPast = !entries[0].isIntersecting;
+		let scrollObserver = new IntersectionObserver(([e]) => (isPinned = e.intersectionRatio < 1), {
+			threshold: [1]
 		});
-		scrollObserver.observe(topPixel);
-		// todo fix
+		scrollObserver.observe(divElement);
+
+		return () => scrollObserver.disconnect();
 	});
 </script>
 
-<div class="absolute bottom-0 hidden" id="top-pixel"></div>
-<div
-	class="sticky top-0 mx-auto flex h-28 w-full flex-row items-center justify-center rounded bg-opacity-20 backdrop-blur-sm backdrop-opacity-95"
-	class:h-12={hasScrolledPast}
->
-	<button
-		class="flex flex-row place-items-center gap-8 rounded-lg bg-stone-500 bg-opacity-0 px-4 py-2 text-6xl font-bold transition hocus:bg-opacity-30"
-		onclick={() => scrollTo({ top: 0, behavior: 'smooth' })}
+<div class="pointer-events-none sticky top-[-1px] h-28" bind:this={divElement}>
+	<nav
+		class="pointer-events-auto mt-2 flex h-28 w-full flex-row items-center justify-center rounded backdrop-blur-sm"
+		class:h-16={isPinned}
 	>
-		<Favicon class="max-h-16 max-w-16" />
-		{#if !hasScrolledPast}
-			<span transition:fade>linkbase</span>
-		{/if}
-	</button>
+		<button
+			class="flex flex-row place-items-center gap-8 rounded-lg bg-stone-500 bg-opacity-0 px-2 py-2 text-6xl font-bold transition hocus:bg-opacity-40"
+			onclick={() => scrollTo({ top: 0, behavior: 'smooth' })}
+		>
+			<Favicon height={!isPinned ? 60 : 40} width={!isPinned ? 60 : 40} />
+			{#if !isPinned}
+				<span in:fade={{ duration: 200 }}>linkbase</span>
+			{/if}
+		</button>
+	</nav>
 </div>
