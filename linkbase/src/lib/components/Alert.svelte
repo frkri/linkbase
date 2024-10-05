@@ -10,16 +10,14 @@
 	let {
 		alertOpen = $bindable(false),
 		buttons = defaultButtons,
-		children,
 		description = '',
 		title = '',
 		trigger
 	}: {
 		alertOpen?: boolean;
 		buttons?: Snippet;
-		children?: Snippet;
-		description?: string;
-		title?: string;
+		description?: Snippet | string;
+		title?: Snippet | string;
 		trigger?: Snippet;
 	} = $props();
 </script>
@@ -39,18 +37,22 @@
 			inTransition={fly}
 			inTransitionConfig={{ duration: 120, y: 24 }}
 		>
-			{#if children}
-				{@render children()}
-			{:else}
-				<div class="flex flex-col gap-4 pb-6">
+			<div class="flex flex-col gap-4 pb-6">
+				{#if typeof title === 'string'}
 					<AlertDialog.Title class="text-lg font-bold">
 						{title}
 					</AlertDialog.Title>
+				{:else}
+					{@render title()}
+				{/if}
+				{#if typeof description === 'string'}
 					<AlertDialog.Description class="text-sm text-stone-600 dark:text-stone-400">
 						{description}
 					</AlertDialog.Description>
-				</div>
-			{/if}
+				{:else}
+					{@render description()}
+				{/if}
+			</div>
 			<div class="flex w-full flex-row items-center justify-end gap-2">
 				{#if buttons}
 					{@render buttons()}
