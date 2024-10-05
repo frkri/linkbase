@@ -16,6 +16,15 @@
 	} = $props();
 
 	let aboutOpen = $state(false);
+	let isServiceWorkerReady = async () =>
+		'serviceWorker' in navigator && navigator.serviceWorker.controller !== null;
+	let storageQuota = async () => {
+		if ('storage' in navigator) {
+			const { quota, usage } = await navigator.storage.estimate();
+			return `${usage ? (usage / 1024 / 1024).toFixed(2) : 0} / ${quota ? (quota / 1024 / 1024).toFixed(2) : 0}MB (${quota && usage ? ((usage / quota) * 100).toFixed(2) : 0}%)`;
+		}
+		return 'not supported';
+	};
 </script>
 
 <DropdownMenu.Root preventScroll={false}>
@@ -43,8 +52,10 @@
 			class="hocus:stroke-stone-800 hocus:text-stone-800 dark:hocus:stroke-stone-300 dark:hocus:text-stone-300"
 			href="settings"
 		>
-			<Settings class="h-4 w-4" />Settings
-		</DropdownMenu.Item><DropdownMenu.Item
+			<Settings class="h-4 w-4" />
+			Settings
+		</DropdownMenu.Item>
+		<DropdownMenu.Item
 			class="cursor-pointer hocus:stroke-stone-800 hocus:text-stone-800 dark:hocus:stroke-stone-300 dark:hocus:text-stone-300"
 			onclick={() => (aboutOpen = true)}
 		>
@@ -54,5 +65,41 @@
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
 
-<Alert bind:alertOpen={aboutOpen} description="Running linkbase version {version}" title="About"
-></Alert>
+<Alert bind:alertOpen={aboutOpen} {description} title="About"></Alert>
+{#snippet description()}
+	<p>
+		<span class="font-medium">Linkbase</span> is a local first bookmarking app that allows you to save,
+		organize, search and archive your favorite websites.
+	</p>
+	<h2 class="font-bold">Enviroment Info</h2>
+	<div class="font-mono *:flex *:flex-row *:items-center *:justify-between *:gap-4 *:text-sm">
+		<p>
+			<span class="font-medium">Linkbase Version</span>
+			<span>{version}</span>
+		</p>
+		<p>
+			<span class="font-medium">Offline Ready</span>
+			{#await isServiceWorkerReady()}
+				<span>pending</span>
+			{:then ready}
+				<span>{ready ? 'yes' : 'no'}</span>
+			{/await}
+		</p>
+		<p>
+			<span class="font-medium">Service Workers</span>
+			{#if 'serviceWorker' in navigator}
+				<span>supported</span>
+			{:else}
+				<span>not supported</span>
+			{/if}
+		</p>
+		<p>
+			<span class="font-medium">Storage Quota</span>
+			{#await storageQuota()}
+				<span>pending</span>
+			{:then quota}
+				<span>{quota}</span>
+			{/await}
+		</p>
+	</div>
+{/snippet}
