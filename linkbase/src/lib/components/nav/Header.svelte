@@ -26,7 +26,7 @@
 		class:min-h-28={!isPinned}
 	>
 		<button
-			class="hocus:bg-opacity-20 flex flex-row place-items-center gap-4 justify-self-center rounded-lg bg-stone-500 bg-opacity-0 p-1 font-bold transition md:gap-8"
+			class="flex flex-row place-items-center gap-4 justify-self-center rounded-lg bg-stone-500 bg-opacity-0 p-1 font-bold transition hocus:bg-opacity-20 md:gap-8"
 			onclick={() => scrollTo({ behavior: 'smooth', top: 0 })}
 		>
 			<Favicon

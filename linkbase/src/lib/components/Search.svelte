@@ -48,7 +48,7 @@
 			<X class="mx-1 w-4 stroke-neutral-600 dark:stroke-neutral-200" />
 		</button>
 	{:else if focusShortcut}
-		<span class="mx-1 flex max-h-6 flex-row gap-1">
+		<span class="mx-1 hidden max-h-6 flex-row gap-1 sm:flex">
 			{#each ['CTRL', 'K'] as key}
 				<kbd
 					class="flex items-center justify-center rounded bg-stone-300 p-2 font-mono text-xs font-semibold dark:bg-stone-800"
