@@ -10,9 +10,15 @@ export default [
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs['flat/recommended'],
-	prettier,
 	...svelte.configs['flat/prettier'],
-	perfectionist.configs['recommended-natural'],
+	perfectionist.configs['recommended-alphabetical'],
+	prettier,
+	{
+		rules: {
+			'perfectionist/sort-svelte-attributes': ['off'],
+			'svelte/sort-attributes': ['error']
+		}
+	},
 	{
 		languageOptions: {
 			globals: {

@@ -23,24 +23,24 @@
 		stroke-width="15"
 	/>
 	<path
+		id="smile"
 		d="M39 40h.0203"
-		id="smile"
 		stroke="#E9E9E9"
 		stroke-linecap="round"
 		stroke-linejoin="round"
 		stroke-width="22"
 	/>
 	<path
+		id="smile"
 		d="M89.0204 40h.0203"
-		id="smile"
 		stroke="#E9E9E9"
 		stroke-linecap="round"
 		stroke-linejoin="round"
 		stroke-width="22"
 	/>
 	<path
-		d="M39 77s10 15 25 15c16.25 0 25-15 25-15"
 		id="smile"
+		d="M39 77s10 15 25 15c16.25 0 25-15 25-15"
 		stroke="#E9E9E9"
 		stroke-linecap="round"
 		stroke-linejoin="round"

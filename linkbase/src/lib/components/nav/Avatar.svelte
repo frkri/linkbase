@@ -40,9 +40,9 @@
 		</div>
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content
+		class="flex flex-col gap-4 rounded border border-stone-500 border-opacity-30 bg-stone-100 bg-opacity-40 p-2 text-sm text-stone-600 backdrop-blur-sm *:flex *:flex-row *:place-items-center *:gap-2 dark:bg-stone-900 dark:bg-opacity-40 dark:text-stone-400"
 		align="end"
 		alignOffset={8}
-		class="flex flex-col gap-4 rounded border border-slate-500 border-opacity-30 bg-stone-100 bg-opacity-40 p-2 text-sm text-stone-600 backdrop-blur-sm *:flex *:flex-row *:place-items-center *:gap-2 dark:bg-stone-900 dark:bg-opacity-40 dark:text-stone-400"
 		side="top"
 		sideOffset={16}
 		transition={fly}
@@ -65,7 +65,7 @@
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
 
-<Alert bind:alertOpen={aboutOpen} {description} title="About"></Alert>
+<Alert {description} title="About" bind:alertOpen={aboutOpen}></Alert>
 {#snippet description()}
 	<p>
 		<span class="font-medium">Linkbase</span> is a local first bookmarking app that allows you to save,

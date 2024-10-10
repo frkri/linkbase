@@ -22,7 +22,7 @@
 	} = $props();
 </script>
 
-<AlertDialog.Root bind:open={alertOpen} closeOnOutsideClick={true}>
+<AlertDialog.Root closeOnOutsideClick={true} bind:open={alertOpen}>
 	{#if trigger}
 		{@render trigger()}
 	{/if}

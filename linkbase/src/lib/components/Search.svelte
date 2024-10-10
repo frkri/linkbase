@@ -30,13 +30,13 @@
 >
 	<Search class="mx-2 h-4 min-h-4 w-4 min-w-4 stroke-neutral-500" />
 	<input
-		autocomplete="off"
+		bind:this={inputElement}
 		class="min-w-0 grow bg-transparent outline-none placeholder:font-medium placeholder:text-neutral-500"
+		autocomplete="off"
 		placeholder="Search"
 		spellcheck="false"
 		type="search"
 		{...props}
-		bind:this={inputElement}
 		bind:value={searchValue}
 	/>
 	{#if searchValue.length !== 0}
