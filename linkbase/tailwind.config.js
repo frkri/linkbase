@@ -7,6 +7,7 @@ export default {
 	plugins: [
 		plugin(function ({ addVariant }) {
 			addVariant('hocus', ['&:hover', '&:focus']);
+			addVariant('hocus-within', ['&:hover', '&:focus-within']);
 		}),
 		plugin(function ({ addBase }) {
 			addBase({
