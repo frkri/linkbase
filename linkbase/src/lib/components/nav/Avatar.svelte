@@ -40,7 +40,7 @@
 		</div>
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content
-		class="flex flex-col gap-4 rounded border border-stone-500 border-opacity-30 bg-stone-100 bg-opacity-40 p-2 text-sm text-stone-600 backdrop-blur-sm *:flex *:flex-row *:place-items-center *:gap-2 dark:bg-stone-900 dark:bg-opacity-40 dark:text-stone-400"
+		class="flex flex-col gap-4 rounded border border-stone-500 border-opacity-60 bg-stone-100 bg-opacity-60 p-2 text-sm text-stone-700 backdrop-blur-sm *:flex *:flex-row *:place-items-center *:gap-2 dark:bg-stone-900 dark:bg-opacity-60 dark:text-stone-300"
 		align="end"
 		alignOffset={8}
 		side="top"
@@ -49,14 +49,14 @@
 		transitionConfig={{ duration: 150, x: 0, y: -8 }}
 	>
 		<DropdownMenu.Item
-			class="hocus:stroke-stone-800 hocus:text-stone-800 dark:hocus:stroke-stone-300 dark:hocus:text-stone-300"
+			class="hocus:stroke-stone-900 hocus:text-stone-900 dark:hocus:stroke-stone-100 dark:hocus:text-stone-100"
 			href="settings"
 		>
 			<Settings class="h-4 w-4" />
 			Settings
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
-			class="cursor-pointer hocus:stroke-stone-800 hocus:text-stone-800 dark:hocus:stroke-stone-300 dark:hocus:text-stone-300"
+			class="cursor-pointer hocus:stroke-stone-900 hocus:text-stone-900 dark:hocus:stroke-stone-100 dark:hocus:text-stone-100"
 			onclick={() => (aboutOpen = true)}
 		>
 			<Info class="h-4 w-4" />
