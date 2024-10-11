@@ -1,5 +1,5 @@
-<script>
-	import Header from '$lib/components/nav/Header.svelte';
+<script lang="ts">
+	import Nav from '$lib/components/nav/Nav.svelte';
 
 	import '../app.css';
 </script>
@@ -9,7 +9,7 @@
 </svelte:head>
 
 <main class="mx-auto max-w-screen-xl p-1 md:p-4">
-	<Header />
+	<Nav />
 	<div class="p-4">
 		<slot />
 	</div>

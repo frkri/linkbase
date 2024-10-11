@@ -26,7 +26,7 @@
 />
 
 <div
-	class="flex h-10 items-center rounded border border-neutral-500 border-opacity-40 transition *:h-full focus-within:border-opacity-100"
+	class="flex h-10 flex-grow items-center rounded border border-neutral-500 border-opacity-40 transition *:h-full focus-within:border-opacity-100"
 >
 	<Search class="mx-2 h-4 min-h-4 w-4 min-w-4 stroke-neutral-500" />
 	<input
@@ -41,7 +41,7 @@
 	/>
 	{#if searchValue.length !== 0}
 		<button
-			class="pr-2 opacity-60 outline-none hocus:opacity-100"
+			class="pr-2 opacity-60 hocus:opacity-100"
 			onclick={() => (searchValue = '')}
 			type="button"
 		>
@@ -51,7 +51,7 @@
 		<span class="mx-1 hidden max-h-6 flex-row gap-1 sm:flex">
 			{#each ['CTRL', 'K'] as key}
 				<kbd
-					class="flex items-center justify-center rounded bg-stone-300 p-2 font-mono text-xs font-semibold dark:bg-stone-800"
+					class="flex items-center justify-center rounded bg-stone-300 p-2 font-mono text-xs font-bold dark:bg-stone-800"
 				>
 					{key}
 				</kbd>

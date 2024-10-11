@@ -11,16 +11,15 @@
 </script>
 
 <li
-	class="flex h-16 w-full list-none flex-row items-center justify-start gap-4 rounded bg-stone-300 bg-opacity-10 px-2 py-2 transition hocus:bg-opacity-40 md:min-h-24 md:px-4 dark:bg-stone-700 dark:bg-opacity-10"
+	class="flex h-16 w-full list-none flex-row items-center justify-start gap-4 rounded bg-stone-300 bg-opacity-10 transition hocus:bg-opacity-40 md:min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
 >
 	<img
-		class="max-h-10 min-h-10 w-full min-w-10 max-w-10 rounded-md bg-stone-100 bg-opacity-40 object-cover p-1 text-center text-xs tracking-tighter hocus:bg-opacity-85 md:max-h-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
+		class="my-2 ml-4 max-h-10 min-h-10 w-full min-w-10 max-w-10 rounded-md bg-stone-100 bg-opacity-40 object-cover p-1 text-center text-xs tracking-tighter hocus:bg-opacity-85 md:max-h-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
 		alt={icon.alt}
 		src={icon.src}
 	/>
-
-	<a class="group flex h-full flex-col items-start justify-center" href={url.toString()}>
-		<div class="flex w-full items-center justify-between">
+	<a class="group my-2 mr-4 flex h-full flex-col items-start justify-center" href={url.toString()}>
+		<div class="flex w-full items-center justify-between gap-4">
 			<span class="line-clamp-1 w-fit text-sm font-bold tracking-tight md:text-lg">
 				{title}
 			</span>

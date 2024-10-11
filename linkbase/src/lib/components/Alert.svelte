@@ -68,7 +68,7 @@
 			<div class="flex min-w-24 flex-row items-center justify-center gap-1">
 				Continue
 				<ArrowRight
-					class="h-0 w-0 stroke-transparent transition-all group-hover/button:h-4 group-hover/button:w-4 group-hover/button:stroke-inherit"
+					class="h-0 w-0 stroke-transparent transition-all group-hover/button:h-4 group-hover/button:w-4 group-hover/button:stroke-inherit group-focus/button:h-4 group-focus/button:w-4 group-focus/button:stroke-inherit"
 				/>
 			</div>
 		</ButtonPrimary>
