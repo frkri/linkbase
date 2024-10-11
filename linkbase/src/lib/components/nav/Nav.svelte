@@ -17,7 +17,9 @@
 		: ViewType.list;
 
 	let searchValue = $state('');
-	let toggleValue = $state($page.url.searchParams.get('view') || preferredViewType);
+	let toggleValue = $state(
+		browser ? $page.url.searchParams.get('view') || preferredViewType : preferredViewType
+	);
 
 	function switchViewType(viewType: string | ViewType) {
 		if (typeof viewType === 'string') viewType = ViewType[viewType as keyof typeof ViewType];
@@ -48,7 +50,7 @@
 {#snippet toggleItem(type: ViewType, Icon: ComponentType<Icon>)}
 	<ToggleGroup.Item
 		class="rounded p-1 text-neutral-500 transition data-[state=on]:bg-stone-200 data-[state=on]:text-stone-900  hocus:text-stone-900 dark:data-[state=on]:bg-stone-800 dark:data-[state=on]:text-stone-100 dark:hocus:text-stone-100"
-		aria-label={`toggle ${type.toString()} view`}
+		aria-label={`Switch to ${type} view`}
 		value={type}
 	>
 		<Icon class="h-5 w-5"></Icon>

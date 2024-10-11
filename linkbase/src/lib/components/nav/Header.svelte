@@ -9,7 +9,7 @@
 
 	$effect(() => {
 		let scrollObserver = new IntersectionObserver(([e]) => (isPinned = e.intersectionRatio < 1), {
-			threshold: [1]
+			threshold: 1
 		});
 		scrollObserver.observe(divElement);
 
@@ -17,7 +17,7 @@
 	});
 </script>
 
-<div bind:this={divElement} class="pointer-events-none sticky top-[-1px] h-28 pt-2">
+<div bind:this={divElement} class="pointer-events-none sticky top-[-1px] z-20 h-28 pt-2">
 	<nav
 		class="pointer-events-auto flex h-12 w-full flex-row items-center justify-between rounded bg-stone-100 bg-opacity-40 px-2 backdrop-blur-sm dark:bg-stone-900 dark:bg-opacity-40"
 		class:!bg-opacity-0={!isPinned}

@@ -13,7 +13,7 @@
 	} & TooltipContentProps = $props();
 </script>
 
-<Tooltip.Root openDelay={300}>
+<Tooltip.Root openDelay={200}>
 	<Tooltip.Trigger>
 		{@render children()}
 	</Tooltip.Trigger>

@@ -14,16 +14,26 @@
 	class="flex h-16 w-full list-none flex-row items-center justify-start gap-4 rounded bg-stone-300 bg-opacity-10 transition hocus:bg-opacity-40 md:min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
 >
 	<img
-		class="my-2 ml-4 max-h-10 min-h-10 w-full min-w-10 max-w-10 rounded-md bg-stone-100 bg-opacity-40 object-cover p-1 text-center text-xs tracking-tighter hocus:bg-opacity-85 md:max-h-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
+		class="my-2 ml-4 max-h-10 min-h-10 w-full min-w-10 max-w-10 rounded-md bg-stone-100 bg-opacity-40 object-cover p-1 text-center text-[0.5rem] hocus:bg-opacity-85 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
 		alt={icon.alt}
+		crossorigin="anonymous"
 		src={icon.src}
 	/>
 	<a class="group my-2 mr-4 flex h-full flex-col items-start justify-center" href={url.toString()}>
 		<div class="flex w-full items-center justify-between gap-4">
-			<span class="line-clamp-1 w-fit text-sm font-bold tracking-tight md:text-lg">
+			<span class="line-clamp-1 w-full text-sm font-medium tracking-tight md:text-lg">
 				{title}
 			</span>
-			<ArrowRight class="h-3 w-3 opacity-0 transition group-hover:opacity-100 md:h-4 md:w-4" />
+			<Tooltip
+				content={url.toString()}
+				side="left"
+				transition={fly}
+				transitionConfig={{ duration: 150, x: 4 }}
+			>
+				<ArrowRight
+					class="h-3 w-3 opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100 md:h-4 md:w-4"
+				/>
+			</Tooltip>
 		</div>
 		<div>
 			<p

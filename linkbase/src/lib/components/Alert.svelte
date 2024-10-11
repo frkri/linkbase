@@ -28,12 +28,12 @@
 	{/if}
 	<AlertDialog.Portal>
 		<AlertDialog.Overlay
-			class="fixed inset-0 z-10 bg-black bg-opacity-30"
+			class="fixed inset-0 z-40 bg-black bg-opacity-30"
 			inTransitionConfig={{ duration: 80 }}
 			transition={fade}
 		/>
 		<AlertDialog.Content
-			class="fixed left-[50%] top-[50%] z-10 grid w-full max-w-[90%] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg bg-stone-200 px-6 py-4 sm:max-w-lg md:w-full dark:bg-stone-800"
+			class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-[90%] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg bg-stone-200 px-6 py-4 sm:max-w-lg md:w-full dark:bg-stone-800"
 			inTransition={fly}
 			inTransitionConfig={{ duration: 120, y: 24 }}
 		>
