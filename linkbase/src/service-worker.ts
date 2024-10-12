@@ -35,7 +35,7 @@ sw.addEventListener('fetch', (event) => {
 
 async function fetchWithCache(request: Request) {
 	const cache = await caches.open(version);
-	const cachedResponse = await cache.match(request, {ignoreSearch: true});
+	const cachedResponse = await cache.match(request, { ignoreSearch: true });
 
 	if (cachedResponse) {
 		fetchAndCache(cache, request);
