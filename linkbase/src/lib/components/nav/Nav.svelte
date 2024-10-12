@@ -49,7 +49,7 @@
 		onSelectedChange={(item) => setSearchParameter('order', item?.value || preferredOrderInnerType)}
 		selected={orderValue}
 	/>
-	<div class="bottom-0 right-0 max-md:fixed max-md:mb-6 max-md:mr-6 max-md:h-6 max-md:w-6">
+	<div class="bottom-0 right-0 z-10 max-md:fixed max-md:mb-6 max-md:mr-6 max-md:h-6 max-md:w-6">
 		<ButtonPrimary>
 			<div class="flex flex-row items-center justify-center gap-1 md:min-w-24">
 				<span class="hidden md:flex">New</span>

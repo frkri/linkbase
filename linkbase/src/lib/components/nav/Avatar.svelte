@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { version } from '$app/environment';
+	import { dbInner } from '$lib/modules/storage/db/client';
 	import { Status } from '$lib/types/status';
 	import { DropdownMenu } from 'bits-ui';
 	import { Info, Settings } from 'lucide-svelte';
@@ -72,34 +73,40 @@
 		organize, search and archive your favorite websites.
 	</p>
 	<h2 class="font-bold">Enviroment Info</h2>
-	<div class="font-mono *:flex *:flex-row *:items-center *:justify-between *:gap-4 *:text-sm">
-		<p>
-			<span class="font-medium">Linkbase Version</span>
-			<span>{version}</span>
-		</p>
-		<p>
-			<span class="font-medium">Offline Ready</span>
-			{#await isServiceWorkerReady()}
-				<span>pending</span>
-			{:then ready}
-				<span>{ready ? 'yes' : 'no'}</span>
-			{/await}
-		</p>
-		<p>
-			<span class="font-medium">Service Workers</span>
-			{#if 'serviceWorker' in navigator}
-				<span>supported</span>
-			{:else}
-				<span>not supported</span>
-			{/if}
-		</p>
-		<p>
-			<span class="font-medium">Storage Quota</span>
-			{#await storageQuota()}
-				<span>pending</span>
-			{:then quota}
-				<span>{quota}</span>
-			{/await}
-		</p>
+	<div
+		class="font-mono text-xs *:flex *:flex-row *:items-center *:justify-between *:gap-4 md:text-sm"
+	>
+		{@render item('Version', version)}
+		{@render item('Offline Ready', isServiceWorkerReady())}
+		{@render item('Service Workers', 'serviceWorker' in navigator ? 'supported' : 'not supported')}
+		{@render item('Storage Quota', storageQuota())}
+		{#await dbInner.getDatabaseInfo()}
+			<span>pending</span>
+		{:then info}
+			{@render item(
+				'Database Size',
+				info.databaseSizeBytes ? (info.databaseSizeBytes / 1024 / 1024).toFixed(2) : 0
+			)}
+			{@render item('Database Path', info.databasePath)}
+			{@render item('Database Type', info.storageType)}
+			{@render item('Database Persisted', info.persisted)}
+		{/await}
 	</div>
+{/snippet}
+
+{#snippet item(
+	name: string,
+	value: boolean | number | Promise<boolean> | Promise<string> | string | undefined
+)}
+	<button
+		class="w-full p-1 first:rounded-tl first:rounded-tr last:rounded-bl last:rounded-br hocus:bg-stone-300 dark:hocus:bg-stone-700"
+		onclick={async () => navigator.clipboard.writeText(`${name}: ${await value}`)}
+	>
+		<span class="font-medium">{name}</span>
+		{#await value}
+			<span>pending</span>
+		{:then val}
+			<span>{val}</span>
+		{/await}
+	</button>
 {/snippet}

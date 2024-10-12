@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { LinkItem } from '$lib/types/item';
+	import type { LinkItem } from '$lib/modules/storage/db/schema';
 
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import { type Icon } from 'lucide-svelte';
@@ -7,19 +7,24 @@
 	import { type ComponentType } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-	let { createdAt, description, icon, title, url, views }: LinkItem = $props();
+	let { imgSrc, imgAlt, createdAt, description, title, url, views }: LinkItem = $props();
 </script>
 
 <li
 	class="flex h-16 w-full list-none flex-row items-center justify-start gap-4 rounded bg-stone-300 bg-opacity-10 transition hocus:bg-opacity-40 md:min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
 >
 	<img
-		class="my-2 ml-4 max-h-10 min-h-10 w-full min-w-10 max-w-10 rounded-md bg-stone-100 bg-opacity-40 object-cover p-1 text-center text-[0.5rem] hocus:bg-opacity-85 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
-		alt={icon.alt}
+		class="my-2 ml-4 max-h-10 min-h-10 w-full min-w-10 max-w-10 overflow-hidden rounded-md bg-stone-100 bg-opacity-40 object-cover p-1 text-center text-[0.5rem] hocus:bg-opacity-85 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
+		alt={imgAlt}
 		crossorigin="anonymous"
-		src={icon.src}
+		src={imgSrc}
 	/>
-	<a class="group my-2 mr-4 flex h-full flex-col items-start justify-center" href={url.toString()}>
+	<a
+		class="group my-2 mr-4 flex h-full w-full flex-col items-start justify-center"
+		href={url.toString()}
+		referrerpolicy="no-referrer"
+		target="_blank"
+	>
 		<div class="flex w-full items-center justify-between gap-4">
 			<span class="line-clamp-1 w-full text-sm font-medium tracking-tight md:text-lg">
 				{title}
@@ -43,7 +48,7 @@
 			</p>
 		</div>
 		<div class="flex flex-row items-center justify-start gap-4 text-xs text-stone-500">
-			{@render itemMetadata('Created at', createdAt.toLocaleDateString(), Calendar)}
+			{@render itemMetadata('Created at', new Date(createdAt).toLocaleDateString(), Calendar)}
 			{@render itemMetadata('Views', views, Eye)}
 		</div>
 	</a>
