@@ -16,7 +16,12 @@ export default [
 	{
 		rules: {
 			'perfectionist/sort-svelte-attributes': ['off'],
-			'svelte/sort-attributes': ['error']
+			'svelte/sort-attributes': ['error'],
+			'perfectionist/sort-enums': ['off'],
+			'perfectionist/sort-classes': ['off'],
+			'perfectionist/sort-object-types': ['off'],
+			'perfectionist/sort-objects': ['off'],
+			'perfectionist/sort-interfaces': ['off']
 		}
 	},
 	{

@@ -5,38 +5,50 @@
 	import ButtonPrimary from '$lib/components/button/ButtonPrimary.svelte';
 	import Header from '$lib/components/nav/Header.svelte';
 	import Search from '$lib/components/Search.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import Toggle from '$lib/components/Toggle.svelte';
-	import { ViewType } from '$lib/types/view';
+	import { OrderInnerType, orders, type OrderType, ViewType } from '$lib/types/nav';
 	import { ToggleGroup } from 'bits-ui';
-	import { Plus } from 'lucide-svelte';
-	import { GitFork, type Icon, LayoutGrid, List } from 'lucide-svelte';
+	import { GitFork, type Icon, LayoutGrid, List, Plus } from 'lucide-svelte';
 	import { type ComponentType } from 'svelte';
 
-	const preferredViewType = browser
-		? localStorage.getItem('preferredViewType') || ViewType.list
-		: ViewType.list;
+	const preferredViewType = getPreffered('preferredViewType', ViewType.list);
+	const preferredOrderInnerType = getPreffered('preferredOrderInnerType', OrderInnerType.name);
 
 	let searchValue = $state('');
 	let toggleValue = $state(
 		browser ? $page.url.searchParams.get('view') || preferredViewType : preferredViewType
 	);
+	let orderValue: OrderType = $state(
+		orders.find((order) => order.value === $page.url.searchParams.get('order')) || orders[0]
+	);
 
-	function switchViewType(viewType: string | ViewType) {
-		if (typeof viewType === 'string') viewType = ViewType[viewType as keyof typeof ViewType];
+	function setSearchParameter(name: string, value: string) {
+		$page.url.searchParams.set(name, value);
+		goto($page.url, { keepFocus: true, noScroll: true });
+	}
 
-		$page.url.searchParams.set('view', viewType.toString());
-		goto($page.url);
+	function getPreffered(name: string, fallback: string) {
+		return browser ? localStorage.getItem(name) || fallback : fallback;
 	}
 </script>
 
 <Header />
 <div class="mt-4 flex gap-1 px-4 md:gap-4">
 	<Search focusShortcut={true} bind:searchValue />
-	<Toggle onValueChange={(item) => switchViewType(item || preferredViewType)} bind:toggleValue>
+	<Toggle
+		onValueChange={(item) => setSearchParameter('view', item || preferredViewType)}
+		bind:toggleValue
+	>
 		{@render toggleItem(ViewType.list, List)}
 		{@render toggleItem(ViewType.grid, LayoutGrid)}
 		{@render toggleItem(ViewType.canvas, GitFork)}
 	</Toggle>
+	<Select
+		items={orders}
+		onSelectedChange={(item) => setSearchParameter('order', item?.value || preferredOrderInnerType)}
+		selected={orderValue}
+	/>
 	<ButtonPrimary>
 		<div class="flex min-w-24 flex-row items-center justify-center gap-1">
 			New
