@@ -7,6 +7,10 @@ body {
 	@apply font-sans text-base font-normal;
 }
 
+*:focus-visible {
+	@apply outline-none outline-2 outline-stone-900 dark:outline-stone-100;
+}
+
 *::selection {
 	@apply bg-rose-300 dark:bg-rose-800;
 }

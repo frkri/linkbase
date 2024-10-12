@@ -11,7 +11,7 @@
 
 <ToggleGroup.Root
 	{...props}
-	class="flex h-10 w-fit items-center justify-start gap-2 rounded border border-neutral-500 border-opacity-40 p-1 transition focus-within:border-opacity-100"
+	class="flex h-10 w-fit items-center justify-start gap-1 rounded border border-neutral-500 border-opacity-40 p-1 transition focus-within:border-opacity-100 sm:gap-2"
 	bind:value={toggleValue}
 >
 	{@render children()}

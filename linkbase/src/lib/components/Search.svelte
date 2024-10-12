@@ -26,12 +26,15 @@
 />
 
 <div
-	class="flex h-10 flex-grow items-center rounded border border-neutral-500 border-opacity-40 transition *:h-full focus-within:border-opacity-100"
+	class="flex h-10 grow items-center rounded border border-neutral-500 border-opacity-40 bg-stone-100 transition *:h-full focus-within:border-opacity-100 max-sm:focus-within:absolute max-sm:focus-within:w-[calc(100%-1rem)] dark:bg-stone-900"
 >
-	<Search class="mx-2 h-4 min-h-4 w-4 min-w-4 stroke-neutral-500" />
+	<Search
+		class="mx-2 h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500"
+		onclick={() => inputElement.focus({ preventScroll: true })}
+	/>
 	<input
 		bind:this={inputElement}
-		class="min-w-0 grow bg-transparent outline-none placeholder:font-medium placeholder:text-neutral-500"
+		class="flex w-0 min-w-0 grow place-items-center bg-transparent !outline-0 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 md:placeholder:text-base"
 		autocomplete="off"
 		placeholder="Search"
 		spellcheck="false"

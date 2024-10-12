@@ -6,9 +6,9 @@
 	import Header from '$lib/components/nav/Header.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import Select from '$lib/components/Select.svelte';
-	import Toggle from '$lib/components/Toggle.svelte';
+	import ToggleGroup from '$lib/components/ToggleGroup.svelte';
 	import { OrderInnerType, orders, type OrderType, ViewType } from '$lib/types/nav';
-	import { ToggleGroup } from 'bits-ui';
+	import { ToggleGroup as Toggle } from 'bits-ui';
 	import { GitFork, type Icon, LayoutGrid, List, Plus } from 'lucide-svelte';
 	import { type ComponentType } from 'svelte';
 
@@ -34,37 +34,39 @@
 </script>
 
 <Header />
-<div class="mt-4 flex gap-1 px-4 md:gap-4">
+<div class="relative mt-4 flex gap-0.5 px-2 sm:gap-2">
 	<Search focusShortcut={true} bind:searchValue />
-	<Toggle
+	<ToggleGroup
 		onValueChange={(item) => setSearchParameter('view', item || preferredViewType)}
 		bind:toggleValue
 	>
 		{@render toggleItem(ViewType.list, List)}
 		{@render toggleItem(ViewType.grid, LayoutGrid)}
 		{@render toggleItem(ViewType.canvas, GitFork)}
-	</Toggle>
+	</ToggleGroup>
 	<Select
 		items={orders}
 		onSelectedChange={(item) => setSearchParameter('order', item?.value || preferredOrderInnerType)}
 		selected={orderValue}
 	/>
-	<ButtonPrimary>
-		<div class="flex min-w-24 flex-row items-center justify-center gap-1">
-			New
-			<Plus
-				class="h-0 w-0 stroke-transparent transition-all group-hover/button:h-4 group-hover/button:w-4 group-hover/button:stroke-inherit group-focus/button:h-4 group-focus/button:w-4 group-focus/button:stroke-inherit"
-			/>
-		</div>
-	</ButtonPrimary>
+	<div class="bottom-0 right-0 max-md:fixed max-md:mb-6 max-md:mr-6 max-md:h-6 max-md:w-6">
+		<ButtonPrimary>
+			<div class="flex flex-row items-center justify-center gap-1 md:min-w-24">
+				<span class="hidden md:flex">New</span>
+				<Plus
+					class="h-4 w-4 transition-all group-hover/button:h-4 group-hover/button:w-4 group-hover/button:stroke-inherit group-focus/button:h-4 group-focus/button:w-4 group-focus/button:stroke-inherit md:h-0 md:w-0 md:stroke-transparent"
+				/>
+			</div>
+		</ButtonPrimary>
+	</div>
 </div>
 
 {#snippet toggleItem(type: ViewType, Icon: ComponentType<Icon>)}
-	<ToggleGroup.Item
+	<Toggle.Item
 		class="rounded p-1 text-neutral-500 transition data-[state=on]:bg-stone-200 data-[state=on]:text-stone-900  hocus:text-stone-900 dark:data-[state=on]:bg-stone-800 dark:data-[state=on]:text-stone-100 dark:hocus:text-stone-100"
 		aria-label={`Switch to ${type} view`}
 		value={type}
 	>
-		<Icon class="h-5 w-5"></Icon>
-	</ToggleGroup.Item>
+		<Icon class="h-4 w-4 sm:h-5 sm:w-5"></Icon>
+	</Toggle.Item>
 {/snippet}
