@@ -6,15 +6,17 @@
 
 	let {
 		placeholder = '',
+		selected = $bindable(),
 		items,
 		...props
 	}: {
 		placeholder?: string;
+		selected?: Selected<string>;
 		items: Selected<string>[];
 	} & SelectProps<string> = $props();
 </script>
 
-<Select.Root {items} {...props}>
+<Select.Root {items} bind:selected {...props}>
 	<Select.Trigger
 		class="flex h-10 min-w-36 max-w-36 items-center justify-between rounded border border-neutral-500 border-opacity-40 px-2 py-2 transition focus-within:border-opacity-100 sm:min-w-48 sm:px-4"
 	>

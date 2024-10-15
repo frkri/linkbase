@@ -1,5 +1,17 @@
 import { type Selected } from 'bits-ui';
 
+export enum ItemURLParams {
+	view = 'v',
+	order = 'o',
+	query = 'q'
+}
+
+export enum ItemStorageKeys {
+	view = 'view',
+	order = 'order',
+	query = 'query'
+}
+
 export enum ViewType {
 	canvas = 'canvas',
 	grid = 'grid',
@@ -7,15 +19,15 @@ export enum ViewType {
 }
 
 export enum OrderInnerType {
-	name = 'name',
+	title = 'title',
 	created = 'created',
-	modified = 'modified'
+	viewed = 'modified'
 }
 
 export type OrderType = Selected<OrderInnerType>;
 
 export const orders: OrderType[] = [
-	{ value: OrderInnerType.name, label: 'Order by name' },
+	{ value: OrderInnerType.title, label: 'Order by title' },
 	{ value: OrderInnerType.created, label: 'Order by created' },
-	{ value: OrderInnerType.modified, label: 'Order by modified' }
+	{ value: OrderInnerType.viewed, label: 'Order by viewed' }
 ];

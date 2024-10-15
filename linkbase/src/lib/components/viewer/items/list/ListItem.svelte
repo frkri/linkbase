@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { LinkItem } from '$lib/modules/storage/db/schema';
 
-	import Tooltip from '$lib/components/Tooltip.svelte';
+	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import { type Icon } from 'lucide-svelte';
 	import { ArrowRight, Calendar, Eye } from 'lucide-svelte';
 	import { type ComponentType } from 'svelte';

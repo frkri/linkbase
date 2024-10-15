@@ -1,11 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
+	import ButtonPrimary from '$lib/components/common/ButtonPrimary.svelte';
 	import { AlertDialog } from 'bits-ui';
 	import { ArrowRight } from 'lucide-svelte';
 	import { fade, fly } from 'svelte/transition';
-
-	import ButtonPrimary from './button/ButtonPrimary.svelte';
 
 	let {
 		alertOpen = $bindable(false),

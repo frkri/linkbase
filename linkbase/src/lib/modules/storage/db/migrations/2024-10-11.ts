@@ -13,6 +13,7 @@ export const Migration20241011: Migration = {
 			.addColumn('imgSrc', 'text', (cb) => cb.notNull())
 			.addColumn('imgAlt', 'text', (cb) => cb.notNull())
 			.addColumn('createdAt', 'integer', (cb) => cb.notNull())
+			.addColumn('viewedAt', 'integer', (cb) => cb.notNull())
 			.addColumn('views', 'integer', (cb) => cb.notNull())
 			.execute();
 	},

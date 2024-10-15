@@ -14,15 +14,8 @@ export interface LinksTable {
 	imgSrc: string;
 	imgAlt: string;
 	createdAt: number;
+	viewedAt: number;
 	views: number;
 }
 
-export type LinkItem = {
-	title: string;
-	url: string;
-	description: string;
-	imgSrc: string;
-	imgAlt: string;
-	createdAt: number;
-	views: number;
-};
+export type LinkItem = Omit<LinksTable, 'id'>;

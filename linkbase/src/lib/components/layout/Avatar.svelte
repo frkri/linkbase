@@ -6,7 +6,7 @@
 	import { Info, Settings } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import Alert from '../Alert.svelte';
+	import Alert from '../common/Alert.svelte';
 
 	let {
 		initials = 'AB',
