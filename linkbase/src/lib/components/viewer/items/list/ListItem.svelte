@@ -11,10 +11,10 @@
 </script>
 
 <li
-	class="flex h-16 w-full list-none flex-row items-center justify-start gap-4 rounded bg-stone-300 bg-opacity-10 transition hocus:bg-opacity-40 md:min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
+	class="flex h-16 w-full list-none flex-row items-center justify-start gap-4 rounded bg-stone-300 bg-opacity-30 transition hocus:bg-opacity-40 md:min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
 >
 	<img
-		class="my-2 ml-4 max-h-10 min-h-10 w-full min-w-10 max-w-10 overflow-hidden rounded-md bg-stone-100 bg-opacity-40 object-cover p-1 text-center text-[0.5rem] hocus:bg-opacity-85 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
+		class="my-2 ml-4 max-h-10 min-h-10 w-full min-w-10 max-w-10 overflow-hidden rounded-md bg-stone-300 bg-opacity-40 object-cover p-1 text-center text-[0.5rem] hocus:bg-opacity-85 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14 dark:bg-stone-700 dark:bg-opacity-40"
 		alt={imgAlt}
 		crossorigin="anonymous"
 		src={imgSrc}

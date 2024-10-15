@@ -13,19 +13,21 @@
 		searchValue = $bindable(),
 		viewValue = $bindable(),
 		orderValue = $bindable(),
+		isLoading = $bindable(false),
 		onViewChange = () => {},
 		onOrderChange = () => {}
 	}: {
 		searchValue: string;
 		viewValue: string;
 		orderValue: OrderType;
+		isLoading?: boolean;
 		onViewChange?: (value: string | undefined) => void;
 		onOrderChange?: (value: Selected<string> | undefined) => void;
 	} = $props();
 </script>
 
-<div class="relative mt-4 flex gap-0.5 px-2 sm:gap-2">
-	<Search focusShortcut={true} bind:searchValue />
+<div class="relative mt-4 flex gap-0.5 sm:gap-2">
+	<Search focusShortcut={true} bind:searchValue bind:isLoading />
 	<ToggleGroup onValueChange={onViewChange} bind:toggleValue={viewValue}>
 		{@render toggleItem(ViewType.list, List)}
 		{@render toggleItem(ViewType.grid, LayoutGrid)}

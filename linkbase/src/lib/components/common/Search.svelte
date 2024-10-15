@@ -1,15 +1,18 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
-	import { Search, X } from 'lucide-svelte';
+	import { Loader, Search, X } from 'lucide-svelte';
+	import { fade } from 'svelte/transition';
 
 	let {
 		focusShortcut = false,
 		searchValue = $bindable(''),
+		isLoading = $bindable(false),
 		...props
 	}: {
 		focusShortcut?: boolean;
 		searchValue: string;
+		isLoading?: boolean;
 	} & HTMLInputAttributes = $props();
 
 	let inputElement: HTMLInputElement;
@@ -26,15 +29,28 @@
 />
 
 <div
-	class="flex h-10 grow items-center rounded border border-neutral-500 border-opacity-40 bg-stone-100 transition *:h-full focus-within:border-opacity-100 max-sm:focus-within:absolute max-sm:focus-within:w-[calc(100%-1rem)] dark:bg-stone-900"
+	class="relative flex h-10 grow items-center rounded border border-neutral-500 border-opacity-40 bg-stone-100 transition *:h-full focus-within:border-opacity-100 max-sm:focus-within:absolute max-sm:focus-within:w-[calc(100%-1rem)] dark:bg-stone-900"
 >
-	<Search
-		class="mx-2 h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500"
-		onclick={() => inputElement.focus({ preventScroll: true })}
-	/>
+	<div class="absolute top-1/2 ml-2 -translate-y-1/4 transform">
+		{#if isLoading}
+			<div in:fade={{ delay: 450, duration: 100 }}>
+				<Loader
+					class="h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500 motion-safe:animate-spin"
+					onclick={() => inputElement.focus({ preventScroll: true })}
+				/>
+			</div>
+		{:else}
+			<div out:fade={{ delay: 200, duration: 100 }}>
+				<Search
+					class="h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500"
+					onclick={() => inputElement.focus({ preventScroll: true })}
+				/>
+			</div>
+		{/if}
+	</div>
 	<input
 		bind:this={inputElement}
-		class="flex w-0 min-w-0 grow place-items-center bg-transparent !outline-0 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 md:placeholder:text-base"
+		class="ml-8 flex w-0 min-w-0 grow place-items-center bg-transparent !outline-0 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 md:placeholder:text-base"
 		autocomplete="off"
 		placeholder="Search"
 		spellcheck="false"
