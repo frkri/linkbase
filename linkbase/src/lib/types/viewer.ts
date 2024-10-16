@@ -31,3 +31,7 @@ export const orders: OrderType[] = [
 	{ value: OrderInnerType.created, label: 'Order by created' },
 	{ value: OrderInnerType.viewed, label: 'Order by viewed' }
 ];
+
+export enum CancelReason {
+	aborted = 'Aborted previous request'
+}

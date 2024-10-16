@@ -1,3 +1,5 @@
+import { CancelReason } from '$lib/types/viewer';
+
 const STORAGE_PREFIX = 'preffered';
 
 /**
@@ -32,4 +34,17 @@ export function setPrefferedToStorage(key: string, value: string) {
 export function setParameter(params: URLSearchParams, name: string, value: string) {
 	if (value.length === 0) params.delete(name);
 	else params.set(name, value.trimEnd());
+}
+
+export function createCancelablePromise<T>(promise: Promise<T>, signal: AbortSignal) {
+	return new Promise<T>((resolve, reject) => {
+		try {
+			promise.then(resolve).catch(reject);
+			signal.addEventListener('abort', () => {
+				reject(CancelReason.aborted);
+			});
+		} catch {
+			// expected error
+		}
+	});
 }

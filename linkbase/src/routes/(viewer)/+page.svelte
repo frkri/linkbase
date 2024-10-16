@@ -5,12 +5,14 @@
 	import Nav from '$lib/components/viewer/Nav.svelte';
 	import { getPrefferedFromMultiple, setParameter } from '$lib/modules/common';
 	import {
+		CancelReason,
 		ItemStorageKeys,
 		ItemURLParams,
 		OrderInnerType,
 		orders,
 		ViewType
 	} from '$lib/types/viewer';
+	import { fade } from 'svelte/transition';
 
 	const preferredViewType = getPrefferedFromMultiple(
 		$page.url,
@@ -48,7 +50,12 @@
 	let isLoading = $state(true);
 	$effect(() => {
 		isLoading = true;
-		data.items.then(() => (isLoading = false));
+		data.items.then(
+			() => (isLoading = false),
+			(reason) => {
+				if (reason !== CancelReason.aborted) isLoading = false;
+			}
+		);
 	});
 
 	let timeoutId: number;
@@ -62,11 +69,14 @@
 
 <Nav bind:searchValue bind:viewValue bind:orderValue bind:isLoading />
 {#await data.items}
-	<ul class="mt-4 flex max-h-[calc(100svh-14rem)] flex-col gap-4 overflow-hidden">
+	<ul
+		class="mt-4 flex max-h-[calc(100svh-14rem)] flex-col gap-4 overflow-hidden"
+		in:fade={{ delay: 200, duration: 200 }}
+	>
 		<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 		{#each { length: 15 } as _}
 			<div
-				class="min-h-16 w-full animate-pulse rounded bg-stone-400 bg-opacity-30 md:min-h-24 dark:bg-stone-600 dark:bg-opacity-10"
+				class="min-h-16 w-full animate-pulse rounded bg-stone-400 bg-opacity-20 md:min-h-24 dark:bg-stone-600 dark:bg-opacity-20"
 			></div>
 		{/each}
 	</ul>

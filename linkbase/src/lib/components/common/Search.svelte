@@ -33,14 +33,14 @@
 >
 	<div class="absolute ml-2 flex place-items-center">
 		{#if isLoading}
-			<div class="motion-safe:animate-spin" in:fade={{ delay: 450, duration: 100 }}>
+			<div class="motion-safe:animate-spin" in:fade={{ delay: 250, duration: 200 }}>
 				<Loader
 					class="h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500"
 					onclick={() => inputElement.focus({ preventScroll: true })}
 				/>
 			</div>
 		{:else}
-			<div out:fade={{ delay: 200, duration: 100 }}>
+			<div out:fade={{ delay: 0, duration: 200 }}>
 				<Search
 					class="h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500"
 					onclick={() => inputElement.focus({ preventScroll: true })}
