@@ -47,7 +47,6 @@
 
 	let isLoading = $state(true);
 	$effect(() => {
-		console.log(data);
 		isLoading = true;
 		data.items.then(() => (isLoading = false));
 	});
@@ -63,7 +62,14 @@
 
 <Nav bind:searchValue bind:viewValue bind:orderValue bind:isLoading />
 {#await data.items}
-	<div></div>
+	<ul class="mt-4 flex max-h-[calc(100svh-14rem)] flex-col gap-4 overflow-hidden">
+		<!-- eslint-disable @typescript-eslint/no-unused-vars -->
+		{#each { length: 15 } as _}
+			<div
+				class="min-h-16 w-full animate-pulse rounded bg-stone-400 bg-opacity-30 md:min-h-24 dark:bg-stone-600 dark:bg-opacity-10"
+			></div>
+		{/each}
+	</ul>
 {:then items}
 	{#if items.length === 0}
 		<div class="mt-16 grid place-items-center gap-2">
@@ -71,11 +77,11 @@
 			<p class="text-stone-500">There were no results found for the search query you entered</p>
 		</div>
 	{:else}
-		<div class="mt-4 flex flex-col gap-4">
+		<ul class="mt-4 flex flex-col gap-4">
 			{#each items as item (item.id)}
 				<ListItem {...item} />
 			{/each}
-		</div>
+		</ul>
 	{/if}
 {:catch error}
 	<div class="mt-16 grid place-items-center gap-2">

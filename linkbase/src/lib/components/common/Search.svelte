@@ -31,11 +31,11 @@
 <div
 	class="relative flex h-10 grow items-center rounded border border-neutral-500 border-opacity-40 bg-stone-100 transition *:h-full focus-within:border-opacity-100 max-sm:focus-within:absolute max-sm:focus-within:w-[calc(100%-1rem)] dark:bg-stone-900"
 >
-	<div class="absolute top-1/2 ml-2 -translate-y-1/4 transform">
+	<div class="absolute ml-2 flex place-items-center">
 		{#if isLoading}
-			<div in:fade={{ delay: 450, duration: 100 }}>
+			<div class="motion-safe:animate-spin" in:fade={{ delay: 450, duration: 100 }}>
 				<Loader
-					class="h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500 motion-safe:animate-spin"
+					class="h-4 min-h-4 w-4 min-w-4 cursor-pointer stroke-neutral-500"
 					onclick={() => inputElement.focus({ preventScroll: true })}
 				/>
 			</div>
