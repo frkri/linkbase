@@ -48,11 +48,11 @@ async function fetchWithCache(request: Request) {
 async function fetchAndCache(cache: Cache, request: Request) {
 	try {
 		const networkResponse = await fetch(request);
-		if (!networkResponse.ok) throw new Error(networkResponse.statusText);
+		if (!networkResponse.ok) throw networkResponse;
 
 		cache.put(request, networkResponse.clone());
 		return networkResponse;
 	} catch (error) {
-		return new Response(error.message, { status: 503, statusText: 'Service Unavailable' });
+		return error;
 	}
 }

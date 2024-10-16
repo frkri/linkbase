@@ -21,7 +21,7 @@ const config = {
 				'script-src': ['self']
 			}
 		},
-		version: { name: pkg.version }
+		version: { name: `${pkg.version}_${process.env.CF_PAGES_COMMIT_SHA || 'dev'}` }
 	},
 	preprocess: vitePreprocess()
 };

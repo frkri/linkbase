@@ -73,9 +73,7 @@
 		organize, search and archive your favorite websites.
 	</p>
 	<h2 class="font-bold">Enviroment Info</h2>
-	<div
-		class="font-mono text-xs *:flex *:flex-row *:items-center *:justify-between *:gap-4 md:text-sm"
-	>
+	<div class="font-mono text-[0.7rem] *:flex *:flex-row *:items-center *:justify-between *:gap-2">
 		{@render item('Version', version)}
 		{@render item('Offline Ready', isServiceWorkerReady())}
 		{@render item('Service Workers', 'serviceWorker' in navigator ? 'supported' : 'not supported')}
@@ -99,7 +97,7 @@
 	value: boolean | number | Promise<boolean> | Promise<string> | string | undefined
 )}
 	<button
-		class="w-full p-1 first:rounded-tl first:rounded-tr last:rounded-bl last:rounded-br hocus:bg-stone-300 dark:hocus:bg-stone-700"
+		class="w-full px-1 py-0.5 first:rounded-tl first:rounded-tr last:rounded-bl last:rounded-br hocus:bg-stone-300 dark:hocus:bg-stone-700"
 		onclick={async () => navigator.clipboard.writeText(`${name}: ${await value}`)}
 	>
 		<span class="font-medium">{name}</span>
