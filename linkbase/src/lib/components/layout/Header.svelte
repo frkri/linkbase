@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Favicon from '$lib/assets/Favicon.svelte';
-	import { fade } from 'svelte/transition';
+	import { goto } from '$app/navigation';
+	import Favicon from '$lib/assets/Favicon.svelte';	import { fade } from 'svelte/transition';
 
 	import Avatar from './Avatar.svelte';
 
@@ -15,6 +15,11 @@
 
 		return () => scrollObserver.disconnect();
 	});
+
+	function scrollOrGoto() {
+		if (window.scrollY === 0) goto('/');
+		else scrollTo({ behavior: 'smooth', top: 0 });
+	}
 </script>
 
 <div bind:this={divElement} class="pointer-events-none sticky top-[-1px] z-20 mb-2 h-28 pt-2">
@@ -27,7 +32,7 @@
 	>
 		<button
 			class="flex flex-row place-items-center gap-4 justify-self-center rounded-lg bg-stone-500 bg-opacity-0 p-1 font-bold transition hocus:bg-opacity-20 md:gap-8"
-			onclick={() => scrollTo({ behavior: 'smooth', top: 0 })}
+			onclick={scrollOrGoto}
 		>
 			<Favicon
 				class="max-h-[30px] max-w-[30px] md:max-h-[50px] md:max-w-[50px]"
