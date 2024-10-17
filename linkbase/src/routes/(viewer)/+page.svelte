@@ -84,7 +84,13 @@
 	{#if items.length === 0}
 		<div class="mt-16 grid place-items-center gap-2">
 			<h2 class="font-semibold">No Links Found</h2>
-			<p class="text-stone-500">There were no results found for the search query you entered</p>
+			<p class="text-center text-stone-500">
+				{#if searchValue.length === 0}
+					Get started by adding a new link
+				{:else}
+					There were no results found for the search query you entered
+				{/if}
+			</p>
 		</div>
 	{:else}
 		<ul class="mt-4 flex flex-col gap-4">
@@ -96,6 +102,6 @@
 {:catch error}
 	<div class="mt-16 grid place-items-center gap-2">
 		<h2 class="font-semibold">An Error Occurred</h2>
-		<p class="text-stone-500">{error}</p>
+		<p class="text-center text-stone-500">{error}</p>
 	</div>
 {/await}

@@ -6,11 +6,13 @@
 
 	let {
 		focusShortcut = false,
+		focusShortcutShown = false,
 		searchValue = $bindable(''),
 		isLoading = $bindable(false),
 		...props
 	}: {
 		focusShortcut?: boolean;
+		focusShortcutShown?: boolean;
 		searchValue: string;
 		isLoading?: boolean;
 	} & HTMLInputAttributes = $props();
@@ -66,7 +68,7 @@
 		>
 			<X class="mx-1 w-4 stroke-neutral-600 dark:stroke-neutral-200" />
 		</button>
-	{:else if focusShortcut}
+	{:else if focusShortcutShown}
 		<span class="mx-1 hidden max-h-6 flex-row gap-1 sm:flex">
 			{#each ['CTRL', 'K'] as key}
 				<kbd

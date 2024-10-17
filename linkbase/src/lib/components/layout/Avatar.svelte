@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { version } from '$app/environment';
+	import Alert from '$lib/components/common/Alert.svelte';
 	import { dbInner } from '$lib/modules/storage/db/client';
 	import { Status } from '$lib/types/status';
 	import { DropdownMenu } from 'bits-ui';
 	import { Info, Settings } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
-
-	import Alert from '../common/Alert.svelte';
 
 	let {
 		initials = 'AB',
@@ -94,7 +93,7 @@
 
 {#snippet item(
 	name: string,
-	value: boolean | number | Promise<boolean> | Promise<string> | string | undefined
+	value: boolean | number | Promise<boolean | string> | string | undefined
 )}
 	<button
 		class="w-full px-1 py-0.5 first:rounded-tl first:rounded-tr last:rounded-bl last:rounded-br hocus:bg-stone-300 dark:hocus:bg-stone-700"
