@@ -32,6 +32,8 @@
 		{#if Icon}
 			<Icon class="size-4 stroke-inherit"></Icon>
 		{/if}
-		<span class="text-sm">{content}</span>
+		{#if content}
+			<span class="text-sm">{content}</span>
+		{/if}
 	</div>
 {/snippet}

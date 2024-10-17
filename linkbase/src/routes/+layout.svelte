@@ -8,9 +8,9 @@
 	<title>linkbase</title>
 </svelte:head>
 
-<main class="mx-auto max-w-screen-xl p-1 md:p-2">
+<main class="mx-auto max-w-screen-xl px-1 md:px-2">
 	<Header />
-	<div class="p-1 md:p-2">
+	<div class="px-1 md:px-2">
 		<slot />
 	</div>
 </main>

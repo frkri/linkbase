@@ -34,6 +34,8 @@
 				class="h-4 w-4 transition-all group-hover/button:h-4 group-hover/button:w-4 group-hover/button:stroke-inherit group-focus/button:h-4 group-focus/button:w-4 group-focus/button:stroke-inherit md:h-0 md:w-0 md:stroke-transparent"
 			></Icon>
 		{/if}
-		<span class="text-sm">{content}</span>
+		{#if content}
+			<span class="text-sm">{content}</span>
+		{/if}
 	</div>
 {/snippet}
