@@ -21,7 +21,7 @@
 	} = $props();
 </script>
 
-<AlertDialog.Root closeOnOutsideClick={true} bind:open={alertOpen}>
+<AlertDialog.Root closeOnOutsideClick={true} preventScroll={false} bind:open={alertOpen}>
 	{#if trigger}
 		{@render trigger()}
 	{/if}
@@ -52,7 +52,7 @@
 					{@render description()}
 				{/if}
 			</div>
-			<div class="flex w-full flex-row items-center justify-end gap-2">
+			<div class="flex w-full items-center justify-between gap-2">
 				{#if buttons}
 					{@render buttons()}
 				{/if}
@@ -62,7 +62,7 @@
 </AlertDialog.Root>
 
 {#snippet defaultButtons()}
-	<AlertDialog.Action>
+	<AlertDialog.Action class="ml-auto">
 		<ButtonPrimary>
 			<div class="flex min-w-24 flex-row items-center justify-center gap-1">
 				Continue
