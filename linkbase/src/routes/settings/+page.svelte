@@ -46,13 +46,13 @@
 	});
 </script>
 
-<div class="flex h-full gap-4">
-	<div class="max-md:hidden">
-		<h1 class="row-span-2 mb-6 text-xl font-bold md:text-2xl">Settings</h1>
+<div class="flex">
+	<div class="sticky top-16 h-0 max-md:hidden">
+		<h1 class="row-span-2 mb-4 text-xl font-medium">Settings</h1>
 		<aside class="flex min-w-36 flex-col text-stone-500">
 			{#each sections as section}
 				<a
-					class="border-l border-stone-600 pl-4 text-lg data-[visible=true]:border-stone-300 data-[visible=true]:font-medium data-[visible=true]:text-stone-300 hocus:bg-opacity-40 hocus:text-stone-300 motion-safe:transition"
+					class="border-l border-stone-300 pl-4 text-lg data-[visible=true]:border-stone-700 data-[visible=true]:font-medium data-[visible=true]:text-stone-900 hocus:bg-opacity-40 hocus:text-stone-700 motion-safe:transition dark:border-stone-600 dark:data-[visible=true]:border-stone-300 dark:data-[visible=true]:text-stone-300 dark:hocus:text-stone-300"
 					data-visible={visibleSections.find((s) => s.title === section.title) ? 'true' : 'false'}
 					href="#{section.title}"
 				>
@@ -61,7 +61,7 @@
 			{/each}
 		</aside>
 	</div>
-	<div class="max-h-[calc(100svh-120px)] w-full overflow-y-scroll px-2">
+	<div class="w-full px-2">
 		<div bind:this={sectionsContainer} class="flex flex-col gap-12">
 			<section id={sections[0].title}>
 				{@render section(sections[0])}
@@ -81,7 +81,7 @@
 
 {#snippet section(section: SectionType)}
 	<h2 class="mb-2 text-lg font-medium md:text-xl">{section.title}</h2>
-	<p class="mb-4 border-b border-stone-600 pb-2 tracking-tight text-stone-400">
+	<p class="mb-4 border-b border-stone-600 pb-2 tracking-tight text-stone-500">
 		{section.description}
 	</p>
 {/snippet}

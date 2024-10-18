@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Favicon from '$lib/assets/Favicon.svelte';	import { fade } from 'svelte/transition';
+	import Favicon from '$lib/assets/Favicon.svelte';
+	import { fade } from 'svelte/transition';
 
 	import Avatar from './Avatar.svelte';
 
