@@ -17,7 +17,8 @@ export const load = (async ({ url }) => {
 	);
 
 	let select = db.selectFrom('links').selectAll();
-	if (queryValue && queryValue.length > 0) select = select.where('title', 'like', `%${queryValue}%`);
+	if (queryValue && queryValue.length > 0)
+		select = select.where('title', 'like', `%${queryValue}%`);
 	switch (orderValue?.value) {
 		case OrderInnerType.title:
 			select = select.orderBy('title');
