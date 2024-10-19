@@ -1,6 +1,5 @@
+import { getPreferredFromStorage } from '$lib/modules/storage/local/localStorage';
 import { CancelReason } from '$lib/types/viewer';
-
-const STORAGE_PREFIX = 'preffered';
 
 /**
  * Tries to get a value from in this order:
@@ -20,15 +19,7 @@ export function getPrefferedFromMultiple<T>(
 	fallback: T
 ) {
 	const value = url.searchParams.get(urlParameter);
-	return value ? value : getPrefferedFromStorage(localStorageKey) || fallback;
-}
-
-export function getPrefferedFromStorage(key: string) {
-	return localStorage.getItem(STORAGE_PREFIX + key);
-}
-
-export function setPrefferedToStorage(key: string, value: string) {
-	localStorage.setItem(STORAGE_PREFIX + key, value);
+	return value ? value : getPreferredFromStorage(localStorageKey) || fallback;
 }
 
 export function setParameter(params: URLSearchParams, name: string, value: string) {
@@ -47,4 +38,12 @@ export function createCancelablePromise<T>(promise: Promise<T>, signal: AbortSig
 			// expected error
 		}
 	});
+}
+
+export function downloadItem(filename: string, url: string) {
+	const a = document.createElement('a');
+	a.download = filename;
+	a.href = url;
+	a.click();
+	a.remove();
 }

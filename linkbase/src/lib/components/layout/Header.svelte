@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Favicon from '$lib/assets/Favicon.svelte';
+	import { getPreferredFromStorage } from '$lib/modules/storage/local/localStorage';
+	import { ItemStorageKeys } from '$lib/types/viewer';
 	import { fade } from 'svelte/transition';
 
 	import Avatar from './Avatar.svelte';
@@ -44,6 +46,6 @@
 				<span class="text-2xl md:text-4xl" in:fade={{ duration: 200 }}>linkbase</span>
 			{/if}
 		</button>
-		<Avatar />
+		<Avatar initials={getPreferredFromStorage(ItemStorageKeys.initials) || '<3'} />
 	</nav>
 </div>

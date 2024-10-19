@@ -5,21 +5,19 @@
 	import Search from '$lib/components/common/Search.svelte';
 	import Select from '$lib/components/common/Select.svelte';
 	import ToggleGroup from '$lib/components/common/ToggleGroup.svelte';
+	import ToggleGroupItem from '$lib/components/common/ToggleGroupItem.svelte';
 	import { orders, type OrderType, ViewType } from '$lib/types/viewer';
-	import { ToggleGroup as Toggle } from 'bits-ui';
 	import { type Selected } from 'bits-ui';
 	import {
 		ArrowRight,
 		Clipboard,
 		File,
 		GitFork,
-		type Icon,
 		LayoutGrid,
 		Link,
 		List,
 		Plus
 	} from 'lucide-svelte';
-	import { type ComponentType } from 'svelte';
 
 	let {
 		searchValue = $bindable(),
@@ -46,9 +44,9 @@
 <div class="relative mt-4 flex gap-0.5 sm:gap-2">
 	<Search {focusShortcut} focusShortcutShown={true} bind:searchValue bind:isLoading />
 	<ToggleGroup onValueChange={onViewChange} bind:toggleValue={viewValue}>
-		{@render toggleItem(ViewType.list, List)}
-		{@render toggleItem(ViewType.grid, LayoutGrid)}
-		{@render toggleItem(ViewType.canvas, GitFork)}
+		<ToggleGroupItem Icon={List} type={ViewType.list} />
+		<ToggleGroupItem Icon={LayoutGrid} type={ViewType.grid} />
+		<ToggleGroupItem Icon={GitFork} type={ViewType.canvas} />
 	</ToggleGroup>
 	<Select
 		items={orders}
@@ -67,16 +65,6 @@
 		</ButtonPrimary>
 	</div>
 </div>
-
-{#snippet toggleItem(type: ViewType, Icon: ComponentType<Icon>)}
-	<Toggle.Item
-		class="rounded p-1 text-neutral-500 transition data-[state=on]:bg-stone-200 data-[state=on]:text-stone-900 hocus:text-stone-900 dark:data-[state=on]:bg-stone-800 dark:data-[state=on]:text-stone-100 dark:hocus:text-stone-100"
-		aria-label={`Switch to ${type} view`}
-		value={type}
-	>
-		<Icon class="h-4 w-4 sm:h-5 sm:w-5"></Icon>
-	</Toggle.Item>
-{/snippet}
 
 <Dialog {buttons} {description} title="New link" bind:alertOpen={dialogNewOpen}></Dialog>
 {#snippet description()}

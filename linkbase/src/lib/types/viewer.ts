@@ -7,6 +7,7 @@ export enum ItemURLParams {
 }
 
 export enum ItemStorageKeys {
+	initials = 'initials',
 	view = 'view',
 	order = 'order',
 	query = 'query'

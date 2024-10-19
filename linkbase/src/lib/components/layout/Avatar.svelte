@@ -8,10 +8,10 @@
 	import { fly } from 'svelte/transition';
 
 	let {
-		initials = 'AB',
+		initials,
 		syncStatus = $bindable(Status.none)
 	}: {
-		initials?: string;
+		initials: string;
 		syncStatus?: Status;
 	} = $props();
 

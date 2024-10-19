@@ -4,10 +4,19 @@
 	import Alert from '$lib/components/common/Alert.svelte';
 	import ButtonPrimary from '$lib/components/common/ButtonPrimary.svelte';
 	import ButtonSecondary from '$lib/components/common/ButtonSecondary.svelte';
+	import Select from '$lib/components/common/Select.svelte';
+	import ToggleGroup from '$lib/components/common/ToggleGroup.svelte';
+	import ToggleGroupItem from '$lib/components/common/ToggleGroupItem.svelte';
 	import SettingsItem from '$lib/components/settings/SettingsItem.svelte';
+	import { downloadItem } from '$lib/modules/common';
 	import { db, dbInner } from '$lib/modules/storage/db/client';
+	import {
+		getPreferredFromStorage as getPreferredFromStorage,
+		setPreferredToStorage as setPreferredToStorage
+	} from '$lib/modules/storage/local/localStorage';
+	import { ItemStorageKeys, orders, ViewType } from '$lib/types/viewer';
 	import { AlertDialog } from 'bits-ui';
-	import { ArrowRight, Download, Upload } from 'lucide-svelte';
+	import { ArrowRight, Download, GitFork, LayoutGrid, List, Upload } from 'lucide-svelte';
 
 	const sections: SectionType[] = [
 		{
@@ -50,19 +59,10 @@
 
 	$effect(() => {
 		if (!sectionsContainer) return;
-
 		sectionsContainer.querySelectorAll('section').forEach((section) => observer.observe(section));
+
 		return () => observer.disconnect();
 	});
-
-	async function exportDatabase() {
-		const file = await dbInner.getDatabaseFile();
-		const a = document.createElement('a');
-		a.download = `linkbase_${new Date().toISOString().replace(/:/g, '-')}.db`;
-		a.href = URL.createObjectURL(file);
-		a.click();
-		a.remove();
-	}
 
 	async function importDatabase() {
 		const input = document.createElement('input');
@@ -74,10 +74,7 @@
 			await dbInner.overwriteDatabaseFile(file);
 		};
 		input.click();
-	}
-
-	async function dropLinks() {
-		db.deleteFrom('links').execute();
+		input.remove();
 	}
 
 	async function countLinks() {
@@ -105,29 +102,60 @@
 			<section id={sections[0].title}>
 				{@render sectionHeader(sections[0])}
 				<SettingsItem
-					description={'Exporting the database will download a copy of the current database. Importing a database will overwrite the current database with the imported one.'}
-					title={'Import and Export'}
+					description={'Change the initials that will be shown in the avatar.'}
+					title={'Initials'}
 				>
-					<div></div>
+					<input
+						class="w-[4ch] min-w-0 rounded border border-neutral-500 border-opacity-40 bg-transparent p-2 text-center !outline-0 transition hocus:border-opacity-100"
+						oninput={(e) => {
+							let value = e.currentTarget.value.slice(0, 2).trim().toUpperCase();
+							setPreferredToStorage(ItemStorageKeys.initials, value);
+							e.currentTarget.value = value;
+						}}
+						title="Enter your initials"
+						type="text"
+						value={getPreferredFromStorage(ItemStorageKeys.initials) || '<3'}
+					/>
 				</SettingsItem>
 			</section>
 
 			<section id={sections[1].title}>
 				{@render sectionHeader(sections[1])}
 				<SettingsItem
-					description={'Exporting the database will download a copy of the current database. Importing a database will overwrite the current database with the imported one.'}
-					title={'Import and Export'}
+					description={'This is the default view that will be shown when you visit the site.'}
+					title={'Preferred view'}
 				>
-					<div></div>
+					<ToggleGroup
+						onValueChange={(view) => {
+							if (view) setPreferredToStorage(ItemStorageKeys.view, view);
+						}}
+						toggleValue={getPreferredFromStorage(ItemStorageKeys.view) || ViewType.list}
+					>
+						<ToggleGroupItem Icon={List} type={ViewType.list} />
+						<ToggleGroupItem Icon={LayoutGrid} type={ViewType.grid} />
+						<ToggleGroupItem Icon={GitFork} type={ViewType.canvas} />
+					</ToggleGroup>
+				</SettingsItem>
+				<SettingsItem
+					description={'This is the default sorting order that will be used when you visit the site.'}
+					title={'Preffered sort order'}
+				>
+					<Select
+						items={orders}
+						onSelectedChange={(selected) => {
+							if (selected) setPreferredToStorage(ItemStorageKeys.order, selected.value);
+						}}
+						preventScroll={false}
+						selected={orders.find(
+							(order) => order.value === getPreferredFromStorage(ItemStorageKeys.order)
+						) || orders[0]}
+					/>
 				</SettingsItem>
 			</section>
 
 			<section id={sections[2].title}>
 				{@render sectionHeader(sections[2])}
-				<SettingsItem
-					description={'Exporting the database will download a copy of the current database. Importing a database will overwrite the current database with the imported one.'}
-					title={'Import and Export'}
-				>
+				<SettingsItem description={''} title={''}>
 					<div></div>
 				</SettingsItem>
 			</section>
@@ -144,7 +172,11 @@
 								class="flex h-12 min-w-16 flex-row items-center justify-center gap-2 rounded-l border border-r-0 border-slate-900 bg-stone-400 bg-opacity-0 stroke-slate-700 p-2 text-sm text-stone-800 transition hocus:bg-opacity-15 md:min-w-44 dark:border-slate-100 dark:bg-stone-300 dark:bg-opacity-0 dark:stroke-slate-100 dark:text-slate-100"
 								content="Export database"
 								icon={Upload}
-								onclick={exportDatabase}
+								onclick={async () =>
+									downloadItem(
+										`linkbase_${new Date().toISOString().replace(/:/g, '-')}.db`,
+										URL.createObjectURL(await dbInner.getDatabaseFile())
+									)}
 							/>
 							<ButtonSecondary
 								class="flex h-12 min-w-16 flex-row items-center justify-center gap-2 rounded-r border border-slate-900 bg-stone-400 bg-opacity-0 stroke-slate-700 p-2 text-sm text-stone-800 transition hocus:bg-opacity-15 md:min-w-44 dark:border-slate-100 dark:bg-stone-300 dark:bg-opacity-0 dark:stroke-slate-100 dark:text-slate-100"
@@ -185,16 +217,18 @@
 	description={deleteAlertDescription}
 	title="Delete database?"
 	bind:alertOpen={deleteAlertOpen}
-></Alert>
+/>
 
 {#snippet deleteAlertDescription()}
-	This will delete all
-	{#await countLinks()}
-		...
-	{:then count}
-		{count[0].count}
-	{/await}
-	links in the database. This action cannot be undone.
+	<span>
+		This will delete all
+		{#await countLinks()}
+			...
+		{:then count}
+			{count[0].count}
+		{/await}
+		links in the database. This action cannot be undone.
+	</span>
 {/snippet}
 
 {#snippet deleteAlertButtons()}
@@ -204,7 +238,7 @@
 	<AlertDialog.Action>
 		<ButtonPrimary
 			class="flex min-h-10 min-w-10 flex-row items-center justify-center gap-2 rounded border border-slate-900 bg-stone-900 p-2 text-sm text-stone-100 transition hocus:border-red-500 hocus:bg-stone-200 hocus:text-red-500 dark:border-stone-100 dark:bg-stone-100 dark:stroke-slate-100 dark:text-slate-900 dark:hocus:bg-stone-900"
-			onclick={dropLinks}
+			onclick={async () => db.deleteFrom('links').execute()}
 		>
 			<div class="flex min-w-24 flex-row items-center justify-center gap-1">
 				Continue
