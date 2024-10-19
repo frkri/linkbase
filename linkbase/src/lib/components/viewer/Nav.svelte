@@ -87,7 +87,7 @@
 			/>
 			<input
 				bind:this={dialogInputElement}
-				class="flex w-full min-w-0 place-items-center bg-transparent !outline-0 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 md:placeholder:text-base"
+				class="w-full min-w-0 bg-transparent !outline-0 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 md:placeholder:text-base"
 				pattern="\S*\S\.\S\S*"
 				placeholder="example.com"
 				title="Enter a valid domain"

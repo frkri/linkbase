@@ -52,7 +52,7 @@
 	</div>
 	<input
 		bind:this={inputElement}
-		class="ml-8 flex w-0 min-w-0 grow place-items-center bg-transparent !outline-0 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 md:placeholder:text-base"
+		class="ml-8 w-0 min-w-0 grow bg-transparent !outline-0 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 md:placeholder:text-base"
 		autocomplete="off"
 		placeholder="Search"
 		spellcheck="false"
