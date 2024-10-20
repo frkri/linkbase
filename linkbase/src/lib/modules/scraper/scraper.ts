@@ -64,7 +64,7 @@ async function scrapeWithLocal(target: URL): Promise<ScrapedData> {
 
 	const title =
 		doc.querySelector('meta[property="og:title"]')?.getAttribute('content') ||
-		doc.querySelector('title')?.textContent ||
+		doc.querySelector('title')?.textContent || 
 		undefined;
 	const description =
 		doc.querySelector('meta[property="og:description"]')?.getAttribute('content') ||
@@ -73,6 +73,8 @@ async function scrapeWithLocal(target: URL): Promise<ScrapedData> {
 	const imgSrc =
 		doc.querySelector('meta[property="og:image"]')?.getAttribute('content') ||
 		doc.querySelector('link[rel="icon"]')?.getAttribute('href') ||
+		doc.querySelector('link[rel="apple-touch-icon"]')?.getAttribute('href') ||
+		doc.querySelector('link[rel="shortcut icon"]')?.getAttribute('href') ||
 		undefined;
 	const imgAlt =
 		doc.querySelector('meta[property="og:image:alt"]')?.getAttribute('content') || undefined;

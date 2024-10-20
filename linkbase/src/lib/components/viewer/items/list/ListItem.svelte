@@ -29,7 +29,7 @@
 				class="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100"
 			/>
 			<img
-				class=" max-h-10 min-h-10 w-full min-w-10 max-w-10 overflow-hidden object-cover p-1 text-center text-[0.5rem] transition group-focus-within:opacity-15 group-hover:opacity-15 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14"
+				class="max-h-10 rounded-md min-h-10 w-full min-w-10 max-w-10 overflow-hidden object-cover p-1 text-center text-[0.5rem] transition group-focus-within:opacity-15 group-hover:opacity-15 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14"
 				alt={imgAlt}
 				crossorigin="anonymous"
 				src={imgSrc ? URL.createObjectURL(new Blob([imgSrc], { type: imgType || 'image/png' })) : ''}
