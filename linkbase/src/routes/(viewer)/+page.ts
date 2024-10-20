@@ -7,7 +7,9 @@ import type { PageLoad } from './$types';
 const abortController: AbortController = new AbortController();
 const { signal } = abortController;
 
-export const load = (async ({ url }) => {
+export const load = (async ({ url, depends }) => {
+	depends('load:query');
+
 	// Abort previous requests
 	abortController.abort();
 

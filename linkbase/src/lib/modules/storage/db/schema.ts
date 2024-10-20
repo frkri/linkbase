@@ -11,11 +11,11 @@ export interface LinksTable {
 	title: string;
 	url: string;
 	description: string;
-	imgSrc: string;
-	imgAlt: string;
+	imgSrc: ArrayBuffer | null;
+	imgAlt: null | string;
 	createdAt: number;
 	viewedAt: number;
 	views: number;
 }
 
-export type LinkItem = Omit<LinksTable, 'id'>;
+export type LinkItem = { id: number } & Omit<LinksTable, 'id'>;

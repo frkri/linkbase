@@ -8,6 +8,8 @@ export enum ItemURLParams {
 
 export enum ItemStorageKeys {
 	initials = 'initials',
+	remoteScraper = 'remoteScraper',
+	remoteStorage = 'remoteStorage',
 	view = 'view',
 	order = 'order',
 	query = 'query'

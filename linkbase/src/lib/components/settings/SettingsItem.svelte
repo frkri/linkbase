@@ -14,7 +14,7 @@
 
 <div class="mb-4">
 	<h3 class="mb-2">{title}</h3>
-	<div class="flex justify-between gap-8">
+	<div class="flex justify-between gap-8 max-sm:flex-col max-sm:gap-4">
 		<p class="text-xs">
 			{description}
 		</p>

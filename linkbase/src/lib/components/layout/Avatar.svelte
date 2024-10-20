@@ -72,7 +72,9 @@
 		organize, search and archive your favorite websites.
 	</p>
 	<h2 class="font-bold">Enviroment Info</h2>
-	<div class="font-mono text-[0.7rem] *:flex *:flex-row *:items-center *:justify-between *:gap-2">
+	<div
+		class="min-h-56 font-mono text-[0.7rem] *:flex *:flex-row *:items-center *:justify-between *:gap-2"
+	>
 		{@render item('Version', version)}
 		{@render item('Offline Ready', isServiceWorkerReady())}
 		{@render item('Service Workers', 'serviceWorker' in navigator ? 'supported' : 'not supported')}

@@ -32,7 +32,7 @@
 			transition={fade}
 		/>
 		<AlertDialog.Content
-			class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-[90%] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg bg-stone-200 px-6 py-4 md:max-w-xl dark:bg-stone-800"
+			class="fixed left-[50%] top-[50%] z-50 mt-2 grid max-h-screen w-full max-w-[90%] translate-x-[-50%] translate-y-[-50%] gap-4 overflow-scroll rounded-lg bg-stone-200 px-6 py-4 md:max-w-xl dark:bg-stone-800"
 			inTransition={fly}
 			inTransitionConfig={{ duration: 120, y: 24 }}
 		>

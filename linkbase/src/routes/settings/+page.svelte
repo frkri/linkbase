@@ -80,6 +80,11 @@
 	async function countLinks() {
 		return await db.selectFrom('links').select(db.fn.countAll().as('count')).execute();
 	}
+
+	function dropLinks() {
+		db.deleteFrom('links').execute();
+		deleteAlertOpen = false;
+	}
 </script>
 
 <div class="mb-24 flex">
@@ -155,8 +160,41 @@
 
 			<section id={sections[2].title}>
 				{@render sectionHeader(sections[2])}
-				<SettingsItem description={''} title={''}>
-					<div></div>
+				<SettingsItem
+					description={'The scraper is used to extract data from websites on behalf of the user only if the local scraper is unable to do so. It is recommended to host a scraper instance locally for privacy reasons due to the remote scraper having access to which website you are saving. Leaving this field empty will never use a remote scraper.'}
+					title={'Scraper'}
+				>
+					<input
+						class="h-10 min-w-72 rounded border border-neutral-500 border-opacity-40 bg-transparent p-2 !outline-0 transition placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 invalid:border-red-200 hocus:border-opacity-100 md:placeholder:text-base"
+						oninput={(e) => {
+							let value = e.currentTarget.value.trim();
+							if (e.currentTarget.checkValidity())
+								setPreferredToStorage(ItemStorageKeys.remoteScraper, value);
+							e.currentTarget.value = value;
+						}}
+						placeholder="https://example.com/scrape"
+						title="Enter the URL of the remote scraper"
+						type="url"
+						value={getPreferredFromStorage(ItemStorageKeys.remoteScraper) || ''}
+					/>
+				</SettingsItem>
+				<SettingsItem
+					description={'The remote service is used to store a copy of the database in case of data loss. Leaving this field empty will never use a remote backup service.'}
+					title={'Backup'}
+				>
+					<input
+						class="h-10 min-w-72 rounded border border-neutral-500 border-opacity-40 bg-transparent p-2 !outline-0 transition placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 invalid:border-red-200 hocus:border-opacity-100 md:placeholder:text-base"
+						oninput={(e) => {
+							let value = e.currentTarget.value.trim();
+							if (e.currentTarget.checkValidity())
+								setPreferredToStorage(ItemStorageKeys.remoteStorage, value);
+							e.currentTarget.value = value;
+						}}
+						placeholder="https://example.com/backup"
+						title="Enter the URL of the remote backup service"
+						type="url"
+						value={getPreferredFromStorage(ItemStorageKeys.remoteStorage) || ''}
+					/>
 				</SettingsItem>
 			</section>
 
@@ -235,17 +273,15 @@
 	<AlertDialog.Cancel>
 		<ButtonSecondary content="Cancel" />
 	</AlertDialog.Cancel>
-	<AlertDialog.Action>
-		<ButtonPrimary
-			class="flex min-h-10 min-w-10 flex-row items-center justify-center gap-2 rounded border border-slate-900 bg-stone-900 p-2 text-sm text-stone-100 transition hocus:border-red-500 hocus:bg-stone-200 hocus:text-red-500 dark:border-stone-100 dark:bg-stone-100 dark:stroke-slate-100 dark:text-slate-900 dark:hocus:bg-stone-900"
-			onclick={async () => db.deleteFrom('links').execute()}
-		>
-			<div class="flex min-w-24 flex-row items-center justify-center gap-1">
-				Continue
-				<ArrowRight
-					class="h-0 w-0 stroke-transparent transition-all group-hover/button:h-4 group-hover/button:w-4 group-hover/button:stroke-inherit group-focus/button:h-4 group-focus/button:w-4 group-focus/button:stroke-inherit"
-				/>
-			</div>
-		</ButtonPrimary>
-	</AlertDialog.Action>
+	<ButtonPrimary
+		class="flex min-h-10 min-w-10 flex-row items-center justify-center gap-2 rounded border border-slate-900 bg-stone-900 p-2 text-sm text-stone-100 transition hocus:border-red-500 hocus:bg-stone-200 hocus:text-red-500 dark:border-stone-100 dark:bg-stone-100 dark:stroke-slate-100 dark:text-slate-900 dark:hocus:bg-stone-900"
+		onclick={() => dropLinks()}
+	>
+		<div class="flex min-w-24 flex-row items-center justify-center gap-1">
+			Continue
+			<ArrowRight
+				class="h-0 w-0 stroke-transparent transition-all group-hover/button:h-4 group-hover/button:w-4 group-hover/button:stroke-inherit group-focus/button:h-4 group-focus/button:w-4 group-focus/button:stroke-inherit"
+			/>
+		</div>
+	</ButtonPrimary>
 {/snippet}
