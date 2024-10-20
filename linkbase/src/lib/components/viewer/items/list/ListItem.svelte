@@ -63,7 +63,7 @@
 		</div>
 		<div>
 			<p
-				class="line-clamp-1 min-w-0 align-top text-[0.6rem] min-h-4 leading-3 tracking-tight text-stone-400 md:text-sm"
+				class="line-clamp-1 min-w-0 align-top text-[0.6rem] leading-3 tracking-tight text-stone-400 md:text-sm"
 			>
 				{description}
 			</p>

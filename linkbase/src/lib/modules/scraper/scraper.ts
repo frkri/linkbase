@@ -39,15 +39,14 @@ async function scrapeWithRemote(target: URL, remote: URL): Promise<ScrapedData> 
 	});
 
 	if (!response.ok) throw new Error('Failed to fetch from remote scraper');
-
 	const formData = await response.formData();
+
 	const jsonPart = formData.get('json');
-	const imgPart = formData.get('image');
-
-	if (!jsonPart || !imgPart) throw new Error('Invalid response format');
-
+	if (!jsonPart) throw new Error('Missing JSON part in response from remote scraper');
 	const jsonData = JSON.parse(jsonPart.toString());
-	const imgBlob = imgPart instanceof Blob ? new Blob([imgPart]) : undefined;
+	
+	const imgPart = formData.get('image');
+	const imgBlob = imgPart != null && imgPart instanceof Blob ? new Blob([imgPart]) : undefined;
 
 	return {
 		url: new URL(jsonData.url),
