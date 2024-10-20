@@ -53,8 +53,8 @@ async function fetchAndCache(cache: Cache, request: Request) {
 
 		cache.put(request, networkResponse.clone());
 		return networkResponse;
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (error) {
-		console.error('Failed to fetch', request.url, error);
 		return new Response(null, { status: 404 });
 	}
 }
