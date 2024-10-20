@@ -11,6 +11,7 @@ export const Migration20241011: Migration = {
 			.addColumn('url', 'text', (cb) => cb.notNull())
 			.addColumn('description', 'text', (cb) => cb.notNull())
 			.addColumn('imgSrc', 'blob')
+			.addColumn('imgType', 'text')
 			.addColumn('imgAlt', 'text')
 			.addColumn('createdAt', 'integer', (cb) => cb.notNull())
 			.addColumn('viewedAt', 'integer', (cb) => cb.notNull())

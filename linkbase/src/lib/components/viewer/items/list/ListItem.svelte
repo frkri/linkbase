@@ -8,7 +8,7 @@
 	import { type ComponentType } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-	let { id, imgSrc, imgAlt, createdAt, description, title, url, views }: LinkItem = $props();
+	let { id, imgSrc, imgType, imgAlt, createdAt, description, title, url, views }: LinkItem = $props();
 </script>
 
 <li
@@ -32,7 +32,7 @@
 				class=" max-h-10 min-h-10 w-full min-w-10 max-w-10 overflow-hidden object-cover p-1 text-center text-[0.5rem] transition group-focus-within:opacity-15 group-hover:opacity-15 md:max-h-14 md:min-h-14 md:min-w-14 md:max-w-14"
 				alt={imgAlt}
 				crossorigin="anonymous"
-				src={imgSrc ? URL.createObjectURL(new Blob([imgSrc], { type: 'image/png' })) : ''}
+				src={imgSrc ? URL.createObjectURL(new Blob([imgSrc], { type: imgType || 'image/png' })) : ''}
 			/>
 		</div>
 	</button>
@@ -43,7 +43,7 @@
 		target="_blank"
 	>
 		<div class="flex w-full items-center justify-between gap-4">
-			<span class="line-clamp-1 w-full text-sm font-medium tracking-tight md:text-lg">
+			<span class="line-clamp-1 w-full text-sm font-medium tracking-tight md:text-lg min-h-5 md:min-h-7">
 				{title}
 			</span>
 			<Tooltip
@@ -59,7 +59,7 @@
 		</div>
 		<div>
 			<p
-				class="line-clamp-1 min-w-0 align-top text-[0.6rem] leading-3 tracking-tight text-stone-400 md:text-sm"
+				class="line-clamp-1 min-w-0 align-top text-[0.6rem] min-h-5 leading-3 tracking-tight text-stone-400 md:text-sm"
 			>
 				{description}
 			</p>

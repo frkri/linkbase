@@ -103,11 +103,12 @@
 		await db
 			.insertInto('links')
 			.values({
-				title: scrapedData.title || '',
+				title: scrapedData.title || url.hostname,
 				description: scrapedData.description || '',
 				url: url.toString(),
 				imgAlt: scrapedData.imgAlt,
 				imgSrc: (await scrapedData.imgSrc?.arrayBuffer()) || null,
+				imgType: scrapedData.imgSrc?.type || 'image/png',
 				viewedAt: new Date().getTime(),
 				createdAt: new Date().getTime(),
 				views: 0
