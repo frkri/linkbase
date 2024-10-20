@@ -286,7 +286,7 @@
 						<Check class="size-4" />
 					{/if}
 				</Checkbox.Indicator>
-				<span>
+				<span class="break-all">
 					{link}
 				</span>
 			</Checkbox.Root>

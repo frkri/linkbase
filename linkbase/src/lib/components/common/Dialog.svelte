@@ -31,7 +31,7 @@
 			transition={fade}
 		/>
 		<Dialog.Content
-			class="fixed left-[50%] top-[50%] z-50 grid max-h-screen w-full max-w-[90%] translate-x-[-50%] translate-y-[-50%] gap-4 overflow-y-auto rounded-lg bg-stone-200 px-6 py-4 md:max-w-xl dark:bg-stone-800"
+			class="fixed overflow-x-hidden left-[50%] top-[50%] z-50 grid max-h-screen w-full max-w-[90%] translate-x-[-50%] translate-y-[-50%] gap-4 overflow-y-auto rounded-lg bg-stone-200 px-6 py-4 md:max-w-xl dark:bg-stone-800"
 			inTransition={fly}
 			inTransitionConfig={{ duration: 120, y: 24 }}
 		>
