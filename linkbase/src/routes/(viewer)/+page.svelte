@@ -114,6 +114,7 @@
 				views: 0
 			})
 			.execute();
+			invalidate('load:query');
 	}
 </script>
 
@@ -175,6 +176,7 @@
 					input.remove();
 					if (!input.files) return;
 
+					dialogCheckedLinks = [];
 					dialogLinks = (await extractLinksFromFiles(input.files)) || [];
 					dialogNewOpen = false;
 					dialogConfirmOpen = true;
@@ -186,6 +188,7 @@
 				e.preventDefault();
 				if (!e.dataTransfer) return;
 
+				dialogCheckedLinks = [];
 				dialogLinks = (await extractLinksFromFiles(e.dataTransfer.files)) || [];
 				dialogNewOpen = false;
 				dialogConfirmOpen = true;
@@ -202,11 +205,9 @@
 			class="flex h-10 grow items-center rounded border border-neutral-500 border-opacity-40 transition *:h-full invalid:border-red-200 focus-within:border-opacity-100"
 			onsubmit={async (e) => {
 				e.preventDefault();
-				await newLink(dialogInputElement.value);
-
+				newLink(dialogInputElement.value);
 				dialogInputElement.value = '';
 				dialogNewOpen = false;
-				invalidate('load:query');
 			}}
 		>
 			<Link
@@ -269,7 +270,7 @@
 	<div class="flex w-full flex-col">
 		{#each dialogLinks as link}
 			<Checkbox.Root
-				class="flex w-full items-center justify-start gap-2 bg-stone-500 bg-opacity-0 p-2 transition first:rounded-t last:rounded-b hocus:bg-opacity-10"
+				class="flex w-full items-start text-start justify-start gap-2 bg-stone-500 bg-opacity-0 p-2 transition first:rounded-t last:rounded-b hocus:bg-opacity-10"
 				checked={dialogLinks.length === 1}
 				onCheckedChange={(checked) => {
 					if (checked) dialogCheckedLinks.push(link);
@@ -305,12 +306,11 @@
 		{#if dialogLinks.length > 0}
 			<ButtonPrimary
 				content="Add"
+				disabled={dialogCheckedLinks.length === 0}
 				onclick={async () => {
 					dialogConfirmOpen = false;
-					await Promise.all(dialogCheckedLinks.map((link) => newLink(link)));
+					dialogCheckedLinks.map((link) => newLink(link));
 					dialogLinks = [];
-					dialogCheckedLinks = [];
-					invalidate('load:query');
 				}}
 			/>
 		{/if}

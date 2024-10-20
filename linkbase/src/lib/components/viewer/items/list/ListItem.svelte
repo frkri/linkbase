@@ -4,11 +4,11 @@
 	import { invalidate } from '$app/navigation';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import { db } from '$lib/modules/storage/db/client';
-	import { ArrowRight, Calendar, Eye, type Icon, Trash } from 'lucide-svelte';
+	import { ArrowRight, Calendar, Eye, type Icon, Trash, Clock } from 'lucide-svelte';
 	import { type ComponentType } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-	let { id, imgSrc, imgType, imgAlt, createdAt, description, title, url, views }: LinkItem = $props();
+	let { id, imgSrc, imgType, imgAlt, createdAt, description, title, url, views, viewedAt }: LinkItem = $props();
 </script>
 
 <li
@@ -36,11 +36,15 @@
 			/>
 		</div>
 	</button>
-	<a
-		class="group my-2 mr-4 flex h-full w-full flex-col items-start justify-center"
-		href={url.toString()}
-		referrerpolicy="no-referrer"
-		target="_blank"
+	<button
+		class="group my-2 mr-4 flex h-full w-full flex-col items-start justify-center text-start"
+		aria-label="Open link in new tab"
+		onmousedown={() => {
+			views++;
+			viewedAt = new Date().getTime();
+			db.updateTable('links').set({views, viewedAt}).where('id', '=', id).execute();
+			window.open(url.toString(), '_blank', 'noopener,noreferrer');
+		}}
 	>
 		<div class="flex w-full items-center justify-between gap-4">
 			<span class="line-clamp-1 w-full text-sm font-medium tracking-tight md:text-lg min-h-5 md:min-h-7">
@@ -66,9 +70,10 @@
 		</div>
 		<div class="flex flex-row items-center justify-start gap-4 text-xs text-stone-500">
 			{@render itemMetadata('Created at', new Date(createdAt).toLocaleDateString(), Calendar)}
+			{@render itemMetadata('Last viewed at', new Date(viewedAt).toLocaleString(), Clock)}
 			{@render itemMetadata('Views', views, Eye)}
 		</div>
-	</a>
+	</button>
 </li>
 
 {#snippet itemMetadata(description: string, value: number | string, Icon: ComponentType<Icon>)}

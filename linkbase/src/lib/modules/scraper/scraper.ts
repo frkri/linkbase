@@ -59,7 +59,7 @@ async function scrapeWithRemote(target: URL, remote: URL): Promise<ScrapedData> 
 }
 
 async function scrapeWithLocal(target: URL): Promise<ScrapedData> {
-	const response = await fetch(target);
+	const response = await fetch(target, {redirect: 'follow'});
 	const doc = new DOMParser().parseFromString(await response.text(), 'text/html');
 
 	const title =

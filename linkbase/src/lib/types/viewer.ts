@@ -24,7 +24,8 @@ export enum ViewType {
 export enum OrderInnerType {
 	title = 'title',
 	created = 'created',
-	viewed = 'modified'
+	viewed = 'modified',
+	views = 'views'
 }
 
 export type OrderType = Selected<OrderInnerType>;
@@ -32,7 +33,8 @@ export type OrderType = Selected<OrderInnerType>;
 export const orders: OrderType[] = [
 	{ value: OrderInnerType.title, label: 'Order by title' },
 	{ value: OrderInnerType.created, label: 'Order by created' },
-	{ value: OrderInnerType.viewed, label: 'Order by viewed' }
+	{ value: OrderInnerType.viewed, label: 'Order by last viewed' },
+	{ value: OrderInnerType.views, label: 'Order by views' }
 ];
 
 export enum CancelReason {

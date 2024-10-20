@@ -26,10 +26,13 @@ export const load = (async ({ url, depends }) => {
 			select = select.orderBy('title');
 			break;
 		case OrderInnerType.created:
-			select = select.orderBy('createdAt');
+			select = select.orderBy('createdAt', 'desc');
 			break;
 		case OrderInnerType.viewed:
-			select = select.orderBy('viewedAt');
+			select = select.orderBy('viewedAt', 'desc');
+			break;
+		case OrderInnerType.views:
+			select = select.orderBy('views', 'desc');
 			break;
 		default:
 			select = select.orderBy('title');
