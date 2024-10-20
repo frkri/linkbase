@@ -33,6 +33,7 @@ sw.addEventListener('fetch', (event) => {
 	event.respondWith(fetchWithCache(event.request));
 });
 
+// Try to use the cache first, otherwise fetch and cache
 async function fetchWithCache(request: Request) {
 	const cache = await caches.open(version);
 	const cachedResponse = await cache.match(request, { ignoreSearch: true });
@@ -53,6 +54,7 @@ async function fetchAndCache(cache: Cache, request: Request) {
 		cache.put(request, networkResponse.clone());
 		return networkResponse;
 	} catch (error) {
-		return error;
+		console.error('Failed to fetch', request.url, error);
+		return new Response(null, { status: 404 });
 	}
 }
