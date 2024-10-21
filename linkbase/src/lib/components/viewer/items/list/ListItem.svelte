@@ -12,7 +12,7 @@
 </script>
 
 <li
-	class="flex w-full list-none flex-row items-center justify-start gap-4 rounded bg-stone-300 bg-opacity-30 pl-4 transition hocus:bg-opacity-40 min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
+	class="flex w-full list-none flex-row items-center justify-start gap-2 md:gap-4 rounded bg-stone-300 bg-opacity-30 pl-4 transition hocus:bg-opacity-40 min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
 >
 	<button
 		class="group relative"
@@ -57,20 +57,25 @@
 				transitionConfig={{ duration: 150, x: 4 }}
 			>
 				<ArrowRight
-					class="h-3 w-3 opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100 md:h-4 md:w-4"
+					class="h-4 w-4 opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100"
 				/>
 			</Tooltip>
 		</div>
 		<div>
 			<p
-				class="line-clamp-1 min-w-0 align-top text-[0.6rem] leading-3 tracking-tight text-stone-400 md:text-sm"
+				class="line-clamp-1 min-w-0 align-top text-[0.6rem] min-h-[0.6rem] leading-3 tracking-tight text-stone-400 md:text-sm"
 			>
 				{description}
 			</p>
 		</div>
-		<div class="flex flex-row items-center justify-start gap-4 text-sm text-stone-500">
+		<div class="flex flex-row items-center justify-start gap-2 md:text-sm text-stone-500 text-xs">
 			{@render itemMetadata('Created at', new Date(createdAt).toLocaleDateString(), Calendar)}
-			{@render itemMetadata('Last viewed at', new Date(viewedAt).toLocaleString(), Clock)}
+			<div class="block sm:hidden">
+				{@render itemMetadata('Last viewed at', new Date(viewedAt).toLocaleTimeString(), Clock)}
+			</div>
+			<div class="hidden sm:block">
+				{@render itemMetadata('Last viewed at', new Date(viewedAt).toLocaleString(), Clock)}
+			</div>
 			{@render itemMetadata('Views', views, Eye)}
 		</div>
 	</button>

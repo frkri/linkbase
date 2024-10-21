@@ -32,6 +32,7 @@ export async function scrape(target: URL): Promise<null | ScrapedData> {
 async function scrapeWithRemote(target: URL, remote: URL): Promise<ScrapedData> {
 	const response = await fetch(remote.toString(), {
 		method: 'POST',
+		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json'
 		},
