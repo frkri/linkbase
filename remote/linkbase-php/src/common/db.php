@@ -9,7 +9,8 @@ if (!defined('DB_DEFINED')) {
     // Initialize the database
     $db->exec('create table if not exists user (
             userId integer primary key autoincrement,
-            username text)');
+            username text,
+            password text)');
 
     $db->exec('create table if not exists session (
             userId integer,
