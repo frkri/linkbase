@@ -1,14 +1,12 @@
 <?php
-include 'common.php';
-
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Access-Control-Allow-Methods: POST');
-
+// Always allow preflight requests due to CORS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(204);
     exit;
 }
+
+require_once '../middleware/auth.php';
+require_once '../common/util.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

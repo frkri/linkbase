@@ -1,25 +1,19 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
-header('Access-Control-Allow-Origin: https://linkbase.frkri.dev');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Credentials: true');
+use lbuchs\WebAuthn\WebAuthn;
 
 $rpId = 'localhost';
-
 session_start();
-
 
 $post = trim(file_get_contents('php://input'));
 if ($post)
     $post = json_decode($post, null, 512, JSON_THROW_ON_ERROR);
 
-$auth = new lbuchs\WebAuthn\WebAuthn('WebAuthn Library', $rpId);
+$auth = new WebAuthn('WebAuthn Library', $rpId);
 // todo switch on create or get request
 
-
-function createRegisterChallenge(lbuchs\WebAuthn\WebAuthn $auth, string $userId, string $userName, string $userDisplayName)
+function createRegisterChallenge(WebAuthn $auth, string $userId, string $userName, string $userDisplayName)
 {
     $challengeArgs = $auth->getCreateArgs(\hex2bin($userId), $userName, $userDisplayName);
 
@@ -30,7 +24,7 @@ function createRegisterChallenge(lbuchs\WebAuthn\WebAuthn $auth, string $userId,
     $_SESSION['challenge'] = $auth->getChallenge();
 }
 
-function verifyRegisterChallenge(lbuchs\WebAuthn\WebAuthn $auth, $post)
+function verifyRegisterChallenge(WebAuthn $auth, $post)
 {
     $clientDataJSON = !empty($post->clientDataJSON) ? base64_decode($post->clientDataJSON) : null;
     $attestationObject = !empty($post->attestationObject) ? base64_decode($post->attestationObject) : null;
