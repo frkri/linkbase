@@ -97,17 +97,15 @@
 	async function newLink(value: string) {
 		if (!value.startsWith('http')) value = `https://${value}`;
 		const url = new URL(value);
-		
+
 		let scrapedData;
 		try {
 			scrapedData = await scrape(url);
 		} catch (error) {
 			console.warn(error);
-			if (error === ScrapeError.Unauthorized)	
-			{
+			if (error === ScrapeError.Unauthorized) {
 				const authURL = getPreferredFromStorage(ItemStorageKeys.remoteAuthURl);
-				if (authURL)
-					window.open(authURL, '_blank', 'width=600,height=800,toolbar=0,menubar=0');
+				if (authURL) window.open(authURL, '_blank', 'width=600,height=800,toolbar=0,menubar=0');
 			}
 		}
 		if (!scrapedData) return;
@@ -126,7 +124,7 @@
 				views: 0
 			})
 			.execute();
-			invalidate('load:query');
+		invalidate('load:query');
 	}
 </script>
 
@@ -282,7 +280,7 @@
 	<div class="flex w-full flex-col">
 		{#each dialogLinks as link}
 			<Checkbox.Root
-				class="flex w-full items-start text-start justify-start gap-2 bg-stone-500 bg-opacity-0 p-2 transition first:rounded-t last:rounded-b hocus:bg-opacity-10"
+				class="flex w-full items-start justify-start gap-2 bg-stone-500 bg-opacity-0 p-2 text-start transition first:rounded-t last:rounded-b hocus:bg-opacity-10"
 				checked={dialogLinks.length === 1}
 				onCheckedChange={(checked) => {
 					if (checked) dialogCheckedLinks.push(link);

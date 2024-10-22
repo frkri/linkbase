@@ -12,7 +12,7 @@ export interface LinksTable {
 	url: string;
 	description: string;
 	imgSrc: ArrayBuffer | null;
-	imgType: string | null;
+	imgType: null | string;
 	imgAlt: null | string;
 	createdAt: number;
 	viewedAt: number;

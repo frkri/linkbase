@@ -48,7 +48,7 @@ async function scrapeWithRemote(target: URL, remote: URL): Promise<ScrapedData> 
 	const jsonPart = formData.get('json');
 	if (!jsonPart) throw ScrapeError.MissingJSON;
 	const jsonData = JSON.parse(jsonPart.toString());
-	
+
 	const imgPart = formData.get('image');
 	const imgBlob = imgPart != null && imgPart instanceof Blob ? new Blob([imgPart]) : undefined;
 
@@ -62,12 +62,12 @@ async function scrapeWithRemote(target: URL, remote: URL): Promise<ScrapedData> 
 }
 
 async function scrapeWithLocal(target: URL): Promise<ScrapedData> {
-	const response = await fetch(target, {redirect: 'follow'});
+	const response = await fetch(target, { redirect: 'follow' });
 	const doc = new DOMParser().parseFromString(await response.text(), 'text/html');
 
 	const title =
 		doc.querySelector('meta[property="og:title"]')?.getAttribute('content') ||
-		doc.querySelector('title')?.textContent || 
+		doc.querySelector('title')?.textContent ||
 		undefined;
 	const description =
 		doc.querySelector('meta[property="og:description"]')?.getAttribute('content') ||

@@ -4,15 +4,26 @@
 	import { invalidate } from '$app/navigation';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import { db } from '$lib/modules/storage/db/client';
-	import { ArrowRight, Calendar, Eye, type Icon, Trash, Clock } from 'lucide-svelte';
+	import { ArrowRight, Calendar, Clock, Eye, type Icon, Trash } from 'lucide-svelte';
 	import { type ComponentType } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-	let { id, imgSrc, imgType, imgAlt, createdAt, description, title, url, views, viewedAt }: LinkItem = $props();
+	let {
+		id,
+		imgSrc,
+		imgType,
+		imgAlt,
+		createdAt,
+		description,
+		title,
+		url,
+		views,
+		viewedAt
+	}: LinkItem = $props();
 </script>
 
 <li
-	class="flex w-full list-none flex-row items-center justify-start gap-2 md:gap-4 rounded bg-stone-300 bg-opacity-30 pl-4 transition hocus:bg-opacity-40 min-h-24 dark:bg-stone-700 dark:bg-opacity-10"
+	class="flex min-h-24 w-full list-none flex-row items-center justify-start gap-2 rounded bg-stone-300 bg-opacity-30 pl-4 transition hocus:bg-opacity-40 md:gap-4 dark:bg-stone-700 dark:bg-opacity-10"
 >
 	<button
 		class="group relative"
@@ -29,10 +40,12 @@
 				class="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100"
 			/>
 			<img
-				class="rounded-md w-full overflow-hidden object-cover p-1 text-center text-[0.5rem] transition group-focus-within:opacity-15 group-hover:opacity-15 max-h-14 min-h-14 min-w-14 max-w-14"
+				class="max-h-14 min-h-14 w-full min-w-14 max-w-14 overflow-hidden rounded-md object-cover p-1 text-center text-[0.5rem] transition group-focus-within:opacity-15 group-hover:opacity-15"
 				alt={imgAlt}
 				crossorigin="anonymous"
-				src={imgSrc ? URL.createObjectURL(new Blob([imgSrc], { type: imgType || 'image/png' })) : ''}
+				src={imgSrc
+					? URL.createObjectURL(new Blob([imgSrc], { type: imgType || 'image/png' }))
+					: ''}
 			/>
 		</div>
 	</button>
@@ -42,7 +55,7 @@
 		onmousedown={() => {
 			views++;
 			viewedAt = new Date().getTime();
-			db.updateTable('links').set({views, viewedAt}).where('id', '=', id).execute();
+			db.updateTable('links').set({ views, viewedAt }).where('id', '=', id).execute();
 			window.open(url.toString(), '_blank', 'noopener,noreferrer');
 		}}
 	>
@@ -63,12 +76,12 @@
 		</div>
 		<div>
 			<p
-				class="line-clamp-1 min-w-0 align-top text-[0.6rem] min-h-[0.6rem] leading-3 tracking-tight text-stone-400 md:text-sm"
+				class="line-clamp-1 min-h-[0.6rem] min-w-0 align-top text-[0.6rem] leading-3 tracking-tight text-stone-400 md:text-sm"
 			>
 				{description}
 			</p>
 		</div>
-		<div class="flex flex-row items-center justify-start gap-2 md:text-sm text-stone-500 text-xs">
+		<div class="flex flex-row items-center justify-start gap-2 text-xs text-stone-500 md:text-sm">
 			{@render itemMetadata('Created at', new Date(createdAt).toLocaleDateString(), Calendar)}
 			<div class="block sm:hidden">
 				{@render itemMetadata('Last viewed at', new Date(viewedAt).toLocaleTimeString(), Clock)}
