@@ -52,7 +52,6 @@ function getSession(string $token)
         $stmt = $db->prepare('delete from session where token = :token');
         $stmt->execute([':token' => $token]);
 
-        
         return false;
     }
 

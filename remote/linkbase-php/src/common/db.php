@@ -12,6 +12,12 @@ if (!defined('DB_DEFINED')) {
             username text,
             password text)');
 
+    $db->exec('create table if not exists objectStore (
+            userId integer,
+            file blob,
+            createdAt integer,
+            foreign key(userId) references user(userId))');
+
     $db->exec('create table if not exists session (
             userId integer,
             token text,

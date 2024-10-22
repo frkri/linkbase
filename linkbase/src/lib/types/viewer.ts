@@ -10,7 +10,7 @@ export enum ItemStorageKeys {
 	initials = 'initials',
 	remoteScraper = 'remoteScraper',
 	remoteStorage = 'remoteStorage',
-	remoteAuthURl = 'remoteAuthURL',
+	remoteAuthURL = 'remoteAuthURL',
 	view = 'view',
 	order = 'order',
 	query = 'query'

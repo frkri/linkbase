@@ -1,4 +1,5 @@
 import { browser, dev } from '$app/environment';
+import { FetchError } from '$lib/modules/scraper/scraper';
 import { Kysely, Migrator } from 'kysely';
 import { SQLocalKysely } from 'sqlocal/kysely';
 
@@ -42,10 +43,8 @@ export async function uploadDatabaseToRemote(remote: URL) {
 		body: formData
 	});
 
-	if (!response.ok) {
-		console.error('Failed to backup to remote');
-		return false;
-	}
+	if (response.status === 401) throw FetchError.Unauthorized;
+	if (!response.ok) throw FetchError.Failed;
 
 	return true;
 }
@@ -56,13 +55,20 @@ export async function downloadDatabaseFromRemote(remote: URL) {
 		credentials: 'include'
 	});
 
-	if (!response.ok) {
-		console.error('Failed to download from remote');
+	if (response.status === 401) throw FetchError.Unauthorized;
+	if (!response.ok) throw FetchError.Failed;
+
+	const form = await response.formData();
+	const dbPart = form.get('db');
+	const dbFile = dbPart instanceof Blob ? new Blob([dbPart]) : null;
+
+	if (!dbFile) {
+		console.error('Failed to download database from remote');
 		return false;
 	}
 
-	const file = await response.blob();
-	await dbInner.overwriteDatabaseFile(file);
+	await dbInner.overwriteDatabaseFile(dbFile);
+	await runMigrations(db);
 
 	return true;
 }

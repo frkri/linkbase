@@ -1,5 +1,5 @@
 import { getPreferredFromStorage } from '$lib/modules/storage/local/localStorage';
-import { CancelReason } from '$lib/types/viewer';
+import { CancelReason, ItemStorageKeys } from '$lib/types/viewer';
 
 /**
  * Tries to get a value from in this order:
@@ -46,4 +46,9 @@ export function downloadItem(filename: string, url: string) {
 	a.href = url;
 	a.click();
 	a.remove();
+}
+
+export function requestAuthorization() {
+	const authURL = getPreferredFromStorage(ItemStorageKeys.remoteAuthURL);
+	if (authURL) window.open(authURL, '_blank', 'width=400,height=700,toolbar=0,menubar=0');
 }

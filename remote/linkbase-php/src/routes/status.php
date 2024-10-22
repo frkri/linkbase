@@ -11,7 +11,7 @@ if (isset($_POST['logout'])) {
     $session = getSession($cookie);
 
     if ($session) {
-        $stmt =  $db->prepare("SELECT * FROM user WHERE userId = :userId limit 1");
+        $stmt = $db->prepare("SELECT * FROM user WHERE userId = :userId limit 1");
         $status = $stmt->execute([':userId' => $session['userId']]);
 
         if ($status)

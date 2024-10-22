@@ -6,10 +6,9 @@
 	import Dialog from '$lib/components/common/Dialog.svelte';
 	import ListItem from '$lib/components/viewer/items/list/ListItem.svelte';
 	import Nav from '$lib/components/viewer/Nav.svelte';
-	import { getPrefferedFromMultiple, setParameter } from '$lib/modules/common';
-	import { scrape, ScrapeError } from '$lib/modules/scraper/scraper';
+	import { getPrefferedFromMultiple, requestAuthorization, setParameter } from '$lib/modules/common';
+	import { FetchError, scrape } from '$lib/modules/scraper/scraper';
 	import { db } from '$lib/modules/storage/db/client';
-	import { getPreferredFromStorage } from '$lib/modules/storage/local/localStorage.js';
 	import {
 		CancelReason,
 		ItemStorageKeys,
@@ -103,10 +102,8 @@
 			scrapedData = await scrape(url);
 		} catch (error) {
 			console.warn(error);
-			if (error === ScrapeError.Unauthorized) {
-				const authURL = getPreferredFromStorage(ItemStorageKeys.remoteAuthURl);
-				if (authURL) window.open(authURL, '_blank', 'width=600,height=800,toolbar=0,menubar=0');
-			}
+			if (error === FetchError.Unauthorized) 
+				requestAuthorization();
 		}
 		if (!scrapedData) return;
 

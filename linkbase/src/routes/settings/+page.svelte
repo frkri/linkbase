@@ -8,7 +8,8 @@
 	import ToggleGroup from '$lib/components/common/ToggleGroup.svelte';
 	import ToggleGroupItem from '$lib/components/common/ToggleGroupItem.svelte';
 	import SettingsItem from '$lib/components/settings/SettingsItem.svelte';
-	import { downloadItem } from '$lib/modules/common';
+	import { downloadItem, requestAuthorization } from '$lib/modules/common';
+	import { FetchError } from '$lib/modules/scraper/scraper';
 	import {
 		db,
 		dbInner,
@@ -207,18 +208,30 @@
 									class="flex h-12 min-w-16 flex-row items-center justify-center gap-2 rounded-l border border-r-0 border-slate-900 bg-stone-400 bg-opacity-0 stroke-slate-700 p-2 text-sm text-stone-800 transition hocus:bg-opacity-15 md:min-w-44 dark:border-slate-100 dark:bg-stone-300 dark:bg-opacity-0 dark:stroke-slate-100 dark:text-slate-100"
 									content="Backup database"
 									icon={Upload}
-									onclick={() => {
+									onclick={async () => {
 										const remote = getPreferredFromStorage(ItemStorageKeys.remoteStorage);
-										if (remote) uploadDatabaseToRemote(new URL(remote));
+										try {
+											if (remote) await uploadDatabaseToRemote(new URL(remote));
+										} catch (error) {
+											console.warn(error);
+											if (error === FetchError.Unauthorized)
+												requestAuthorization();
+										}
 									}}
 								/>
 								<ButtonSecondary
 									class="flex h-12 min-w-16 flex-row items-center justify-center gap-2 rounded-r border border-slate-900 bg-stone-400 bg-opacity-0 stroke-slate-700 p-2 text-sm text-stone-800 transition hocus:bg-opacity-15 md:min-w-44 dark:border-slate-100 dark:bg-stone-300 dark:bg-opacity-0 dark:stroke-slate-100 dark:text-slate-100"
 									content="Restore database"
 									icon={Download}
-									onclick={() => {
+									onclick={async () => {
 										const remote = getPreferredFromStorage(ItemStorageKeys.remoteStorage);
-										if (remote) downloadDatabaseFromRemote(new URL(remote));
+										try {
+											if (remote) await downloadDatabaseFromRemote(new URL(remote));
+										} catch (error) {
+											console.warn(error);
+											if (error === FetchError.Unauthorized) 
+												requestAuthorization();
+										}
 									}}
 								/>
 							</div>
@@ -234,13 +247,13 @@
 						oninput={(e) => {
 							let value = e.currentTarget.value.trim();
 							if (e.currentTarget.checkValidity())
-								setPreferredToStorage(ItemStorageKeys.remoteAuthURl, value);
+								setPreferredToStorage(ItemStorageKeys.remoteAuthURL, value);
 							e.currentTarget.value = value;
 						}}
 						placeholder="https://example.com"
 						title="Enter the URL of the remote auth url"
 						type="url"
-						value={getPreferredFromStorage(ItemStorageKeys.remoteAuthURl) || ''}
+						value={getPreferredFromStorage(ItemStorageKeys.remoteAuthURL) || ''}
 					/>
 				</SettingsItem>
 			</section>

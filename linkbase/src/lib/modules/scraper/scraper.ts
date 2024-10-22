@@ -9,10 +9,10 @@ export type ScrapedData = {
 	imgAlt: string | undefined;
 };
 
-export enum ScrapeError {
-	Unauthorized = 'Unauthorized to fetch from remote scraper',
-	Failed = 'Failed to fetch from remote scraper',
-	MissingJSON = 'Missing JSON part in response from remote scraper'
+export enum FetchError {
+	Unauthorized = 'Unauthorized to fetch',
+	Failed = 'Failed to fetch',
+	MissingJSON = 'Missing JSON part in response'
 }
 
 export async function scrape(target: URL): Promise<null | ScrapedData> {
@@ -41,12 +41,12 @@ async function scrapeWithRemote(target: URL, remote: URL): Promise<ScrapedData> 
 		body: JSON.stringify({ url: target.toString() })
 	});
 
-	if (response.status === 401) throw ScrapeError.Unauthorized;
-	if (!response.ok) throw ScrapeError.Failed;
+	if (response.status === 401) throw FetchError.Unauthorized;
+	if (!response.ok) throw FetchError.Failed;
 	const formData = await response.formData();
 
 	const jsonPart = formData.get('json');
-	if (!jsonPart) throw ScrapeError.MissingJSON;
+	if (!jsonPart) throw FetchError.MissingJSON;
 	const jsonData = JSON.parse(jsonPart.toString());
 
 	const imgPart = formData.get('image');

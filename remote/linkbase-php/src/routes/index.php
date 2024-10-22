@@ -2,7 +2,7 @@
 require_once '../common/session.php';
 require_once '../common/db.php';
 
-$errorMsg = '';
+$msg = 'Linkbase has requested you to authenticate in order to access this service.';
 $session = false;
 if (isset($_COOKIE[$cookieName])) {
     $cookie = $_COOKIE[$cookieName];
@@ -35,13 +35,13 @@ if (isset($_COOKIE[$cookieName])) {
 
 function registerUser(string $username, string $password)
 {
-    global $db, $errorMsg;
+    global $db, $msg;
 
     $lenUsername = strlen($username);
     $lenPassword = strlen($password);
 
     if ($lenUsername <= 3 || $lenPassword <= 3 || $lenUsername >= 12 || $lenPassword >= 32) {
-        $errorMsg = 'Username and password must be between 3 and 12 characters';
+        $msg = 'Username and password must be between 3 and 12 characters';
         return false;
     }
 
@@ -49,7 +49,7 @@ function registerUser(string $username, string $password)
     $status = $stmt->execute([':username' => $username]);
 
     if ($status && $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $errorMsg = 'Registration failed. Please try again.';
+        $msg = 'Registration failed. Please try again.';
         return false;
     }
 
@@ -65,7 +65,7 @@ function registerUser(string $username, string $password)
 
 function loginUser(string $username, string $password)
 {
-    global $db, $errorMsg;
+    global $db, $msg;
 
     $stmt = $db->prepare("SELECT * FROM user WHERE username = :username limit 1");
     $status = $stmt->execute([':username' => $username]);
@@ -79,7 +79,7 @@ function loginUser(string $username, string $password)
         }
     }
 
-    $errorMsg = 'Invalid username or password';
+    $msg = 'Invalid username or password';
     return false;
 }
 ?>
@@ -112,7 +112,7 @@ function loginUser(string $username, string $password)
         </form>
     </div>
     <p>
-        <?= $errorMsg ?>
+        <?= $msg ?>
     </p>
 </body>
 
@@ -155,6 +155,7 @@ function loginUser(string $username, string $password)
         }
 
         &>p {
+            font-size: 0.75rem;
             text-align: center;
             margin: 0rem 2rem;
         }
