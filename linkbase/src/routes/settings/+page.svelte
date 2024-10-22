@@ -9,7 +9,12 @@
 	import ToggleGroupItem from '$lib/components/common/ToggleGroupItem.svelte';
 	import SettingsItem from '$lib/components/settings/SettingsItem.svelte';
 	import { downloadItem } from '$lib/modules/common';
-	import { db, dbInner } from '$lib/modules/storage/db/client';
+	import {
+		db,
+		dbInner,
+		downloadDatabaseFromRemote,
+		uploadDatabaseToRemote
+	} from '$lib/modules/storage/db/client';
 	import {
 		getPreferredFromStorage as getPreferredFromStorage,
 		setPreferredToStorage as setPreferredToStorage
@@ -179,22 +184,46 @@
 					/>
 				</SettingsItem>
 				<SettingsItem
-					description={'The remote service is used to store a copy of the database in case of data loss. Leaving this field empty will never use a remote backup service.'}
+					description={'You can backup your database to the remote service or restore a previously backed-up database.'}
 					title={'Backup'}
 				>
-					<input
-						class="h-10 min-w-72 rounded border border-neutral-500 border-opacity-40 bg-transparent p-2 !outline-0 transition placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 invalid:border-red-200 hocus:border-opacity-100 md:placeholder:text-base"
-						oninput={(e) => {
-							let value = e.currentTarget.value.trim();
-							if (e.currentTarget.checkValidity())
-								setPreferredToStorage(ItemStorageKeys.remoteStorage, value);
-							e.currentTarget.value = value;
-						}}
-						placeholder="https://example.com/backup"
-						title="Enter the URL of the remote backup service"
-						type="url"
-						value={getPreferredFromStorage(ItemStorageKeys.remoteStorage) || ''}
-					/>
+					<div class="flex flex-col gap-4">
+						<input
+							class="h-10 min-w-72 rounded border border-neutral-500 border-opacity-40 bg-transparent p-2 !outline-0 transition placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 invalid:border-red-200 hocus:border-opacity-100 md:placeholder:text-base"
+							oninput={(e) => {
+								let value = e.currentTarget.value.trim();
+								if (e.currentTarget.checkValidity())
+									setPreferredToStorage(ItemStorageKeys.remoteStorage, value);
+								e.currentTarget.value = value;
+							}}
+							placeholder="https://example.com/backup"
+							title="Enter the URL of the remote backup service"
+							type="url"
+							value={getPreferredFromStorage(ItemStorageKeys.remoteStorage) || ''}
+						/>
+						<div class="flex justify-between gap-8">
+							<div class="flex">
+								<ButtonSecondary
+									class="flex h-12 min-w-16 flex-row items-center justify-center gap-2 rounded-l border border-r-0 border-slate-900 bg-stone-400 bg-opacity-0 stroke-slate-700 p-2 text-sm text-stone-800 transition hocus:bg-opacity-15 md:min-w-44 dark:border-slate-100 dark:bg-stone-300 dark:bg-opacity-0 dark:stroke-slate-100 dark:text-slate-100"
+									content="Backup database"
+									icon={Upload}
+									onclick={() => {
+										const remote = getPreferredFromStorage(ItemStorageKeys.remoteStorage);
+										if (remote) uploadDatabaseToRemote(new URL(remote));
+									}}
+								/>
+								<ButtonSecondary
+									class="flex h-12 min-w-16 flex-row items-center justify-center gap-2 rounded-r border border-slate-900 bg-stone-400 bg-opacity-0 stroke-slate-700 p-2 text-sm text-stone-800 transition hocus:bg-opacity-15 md:min-w-44 dark:border-slate-100 dark:bg-stone-300 dark:bg-opacity-0 dark:stroke-slate-100 dark:text-slate-100"
+									content="Restore database"
+									icon={Download}
+									onclick={() => {
+										const remote = getPreferredFromStorage(ItemStorageKeys.remoteStorage);
+										if (remote) downloadDatabaseFromRemote(new URL(remote));
+									}}
+								/>
+							</div>
+						</div>
+					</div>
 				</SettingsItem>
 				<SettingsItem
 					description={'Will be used to authenticate with the remote service if required. If linkbase encounters an authentication error, it will prompt you to enter the credentials on the remote website.'}
