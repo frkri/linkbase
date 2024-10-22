@@ -22,11 +22,11 @@ export const load = (async ({ url, depends }) => {
 	if (queryValue && queryValue.length > 0)
 		select = select.where('title', 'like', `%${queryValue}%`);
 	switch (orderValue?.value) {
-		case OrderInnerType.title:
-			select = select.orderBy('title');
-			break;
 		case OrderInnerType.created:
 			select = select.orderBy('createdAt', 'desc');
+			break;
+		case OrderInnerType.title:
+			select = select.orderBy('title');
 			break;
 		case OrderInnerType.viewed:
 			select = select.orderBy('viewedAt', 'desc');

@@ -6,7 +6,11 @@
 	import Dialog from '$lib/components/common/Dialog.svelte';
 	import ListItem from '$lib/components/viewer/items/list/ListItem.svelte';
 	import Nav from '$lib/components/viewer/Nav.svelte';
-	import { getPrefferedFromMultiple, requestAuthorization, setParameter } from '$lib/modules/common';
+	import {
+		getPrefferedFromMultiple,
+		requestAuthorization,
+		setParameter
+	} from '$lib/modules/common';
 	import { FetchError, scrape } from '$lib/modules/scraper/scraper';
 	import { db } from '$lib/modules/storage/db/client';
 	import {
@@ -102,8 +106,7 @@
 			scrapedData = await scrape(url);
 		} catch (error) {
 			console.warn(error);
-			if (error === FetchError.Unauthorized) 
-				requestAuthorization();
+			if (error === FetchError.Unauthorized) requestAuthorization();
 		}
 		if (!scrapedData) return;
 

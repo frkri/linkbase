@@ -149,7 +149,7 @@
 				</SettingsItem>
 				<SettingsItem
 					description={'This is the default sorting order that will be used when you visit the site.'}
-					title={'Preffered sort order'}
+					title={'Prefered sort order'}
 				>
 					<Select
 						items={orders}
@@ -214,8 +214,7 @@
 											if (remote) await uploadDatabaseToRemote(new URL(remote));
 										} catch (error) {
 											console.warn(error);
-											if (error === FetchError.Unauthorized)
-												requestAuthorization();
+											if (error === FetchError.Unauthorized) requestAuthorization();
 										}
 									}}
 								/>
@@ -229,8 +228,7 @@
 											if (remote) await downloadDatabaseFromRemote(new URL(remote));
 										} catch (error) {
 											console.warn(error);
-											if (error === FetchError.Unauthorized) 
-												requestAuthorization();
+											if (error === FetchError.Unauthorized) requestAuthorization();
 										}
 									}}
 								/>
