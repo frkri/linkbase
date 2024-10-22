@@ -16,6 +16,10 @@ if (isset($_POST['logout'])) {
 
         if ($status)
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+        // Invalid session, clear the cookie
+        unset($_COOKIE[$cookieName]);
+        setcookie($cookieName, '', time() - 3600);
     }
 }
 
@@ -83,20 +87,20 @@ if (!$user) {
         }
     }
 
-    #loggedIn {    
-    &> h1 {
+    #loggedIn {
+        &>h1 {
             font-weight: 600;
             font-size: 1.5rem;
             text-align: center;
             margin-bottom: 1rem;
         }
 
-        &> p {
+        &>p {
             margin-bottom: 4rem;
             text-align: center;
         }
 
-        &> form button {
+        &>form button {
             transition: all 120ms ease-in-out;
             border: none;
             cursor: pointer;

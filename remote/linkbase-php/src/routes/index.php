@@ -11,6 +11,10 @@ if (isset($_COOKIE[$cookieName])) {
     if ($session) {
         header('Location: status.php');
         exit();
+    } else {
+        // Invalid session, clear the cookie
+        unset($_COOKIE[$cookieName]);
+        setcookie($cookieName, '', time() - 3600);
     }
 } else if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = trim($_POST['username']);
@@ -95,15 +99,15 @@ function loginUser(string $username, string $password)
         <form method="post">
             <h1>Register</h1>
             <input type="hidden" name="register" value="true">
-            <input type="text" name="username" id="username" placeholder="Username">
-            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="text" name="username" id="username" placeholder="Username" required>
+            <input type="password" name="password" id="password" placeholder="Password" autocomplete="new-password" required>
             <button type="submit">Register</button>
         </form>
         <form method="post">
             <h1>Login</h1>
             <input type="hidden" name="login" value="true">
-            <input type="username" name="username" id="username" placeholder="Username">
-            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="username" name="username" id="username" placeholder="Username" required>
+            <input type="password" name="password" id="password" placeholder="Password" required>
             <button type="submit" value="Submit">Login</button>
         </form>
     </div>
