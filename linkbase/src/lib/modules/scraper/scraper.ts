@@ -9,6 +9,12 @@ export type ScrapedData = {
 	imgAlt: string | undefined;
 };
 
+export enum ScrapeError {
+	Unauthorized = 'Unauthorized to fetch from remote scraper',
+	Failed = 'Failed to fetch from remote scraper',
+	MissingJSON = 'Missing JSON part in response from remote scraper'
+}
+
 export async function scrape(target: URL): Promise<null | ScrapedData> {
 	try {
 		return await scrapeWithLocal(target);
@@ -19,11 +25,7 @@ export async function scrape(target: URL): Promise<null | ScrapedData> {
 	const remoteScraper = getPreferredFromStorage(ItemStorageKeys.remoteScraper);
 	if (remoteScraper) {
 		const remote = new URL(remoteScraper);
-		try {
-			return await scrapeWithRemote(target, remote);
-		} catch (error) {
-			console.warn('Remote scraper failed', error);
-		}
+		return await scrapeWithRemote(target, remote);
 	}
 
 	return null;
@@ -39,11 +41,12 @@ async function scrapeWithRemote(target: URL, remote: URL): Promise<ScrapedData> 
 		body: JSON.stringify({ url: target.toString() })
 	});
 
-	if (!response.ok) throw new Error('Failed to fetch from remote scraper');
+	if (response.status === 401) throw ScrapeError.Unauthorized;
+	if (!response.ok) throw ScrapeError.Failed;
 	const formData = await response.formData();
 
 	const jsonPart = formData.get('json');
-	if (!jsonPart) throw new Error('Missing JSON part in response from remote scraper');
+	if (!jsonPart) throw ScrapeError.MissingJSON;
 	const jsonData = JSON.parse(jsonPart.toString());
 	
 	const imgPart = formData.get('image');

@@ -196,6 +196,24 @@
 						value={getPreferredFromStorage(ItemStorageKeys.remoteStorage) || ''}
 					/>
 				</SettingsItem>
+				<SettingsItem
+					description={'Will be used to authenticate with the remote service if required. If linkbase encounters an authentication error, it will prompt you to enter the credentials on the remote website.'}
+					title={'Auth URL'}
+				>
+					<input
+						class="h-10 min-w-72 rounded border border-neutral-500 border-opacity-40 bg-transparent p-2 !outline-0 transition placeholder:text-sm placeholder:font-medium placeholder:text-neutral-500 invalid:border-red-200 hocus:border-opacity-100 md:placeholder:text-base"
+						oninput={(e) => {
+							let value = e.currentTarget.value.trim();
+							if (e.currentTarget.checkValidity())
+								setPreferredToStorage(ItemStorageKeys.remoteAuthURl, value);
+							e.currentTarget.value = value;
+						}}
+						placeholder="https://example.com"
+						title="Enter the URL of the remote auth url"
+						type="url"
+						value={getPreferredFromStorage(ItemStorageKeys.remoteAuthURl) || ''}
+					/>
+				</SettingsItem>
 			</section>
 
 			<section id={sections[3].title}>

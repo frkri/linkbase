@@ -44,11 +44,10 @@ function registerUser(string $username, string $password)
     $stmt = $db->prepare("SELECT * FROM user WHERE username = :username limit 1");
     $status = $stmt->execute([':username' => $username]);
 
-    if ($status && $stmt->fetch(PDO::FETCH_ASSOC))
-        {
+    if ($status && $stmt->fetch(PDO::FETCH_ASSOC)) {
         $errorMsg = 'Registration failed. Please try again.';
         return false;
-        }
+    }
 
     $stmt = $db->prepare("INSERT INTO user (username, password) VALUES (:username, :password)");
     $status = $stmt->execute([':username' => $username, ':password' => password_hash($password, PASSWORD_DEFAULT)]);
@@ -139,7 +138,8 @@ function loginUser(string $username, string $password)
         height: 100vh;
         width: 100%;
 
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
 
         background-color: #1c1917;
         color: #e5e5e5;
@@ -148,6 +148,11 @@ function loginUser(string $username, string $password)
             font-family: 'Geist', 'sans-serif';
             font-weight: 400;
             font-size: 1rem;
+        }
+
+        &>p {
+            text-align: center;
+            margin: 0rem 2rem;
         }
     }
 

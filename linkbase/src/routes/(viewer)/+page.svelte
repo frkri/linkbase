@@ -7,8 +7,9 @@
 	import ListItem from '$lib/components/viewer/items/list/ListItem.svelte';
 	import Nav from '$lib/components/viewer/Nav.svelte';
 	import { getPrefferedFromMultiple, setParameter } from '$lib/modules/common';
-	import { scrape } from '$lib/modules/scraper/scraper';
+	import { scrape, ScrapeError } from '$lib/modules/scraper/scraper';
 	import { db } from '$lib/modules/storage/db/client';
+	import { getPreferredFromStorage } from '$lib/modules/storage/local/localStorage.js';
 	import {
 		CancelReason,
 		ItemStorageKeys,
@@ -96,8 +97,19 @@
 	async function newLink(value: string) {
 		if (!value.startsWith('http')) value = `https://${value}`;
 		const url = new URL(value);
-
-		const scrapedData = await scrape(url);
+		
+		let scrapedData;
+		try {
+			scrapedData = await scrape(url);
+		} catch (error) {
+			console.warn(error);
+			if (error === ScrapeError.Unauthorized)	
+			{
+				const authURL = getPreferredFromStorage(ItemStorageKeys.remoteAuthURl);
+				if (authURL)
+					window.open(authURL, '_blank', 'width=600,height=800,toolbar=0,menubar=0');
+			}
+		}
 		if (!scrapedData) return;
 
 		await db

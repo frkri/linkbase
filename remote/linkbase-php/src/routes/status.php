@@ -38,7 +38,7 @@ if (!$user) {
 <body>
     <div id="loggedIn">
         <h1><?= $user['username'] ?></h1>
-        <p>You may close this window now</p>
+        <p>You are logged in, you may close this windows.</p>
         <form method="post">
             <input type="hidden" name="logout" value="true">
             <button type="submit" name="logout">Logout</button>
