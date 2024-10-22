@@ -42,7 +42,8 @@ if (!$user) {
 <body>
     <div id="loggedIn">
         <h1><?= $user['username'] ?></h1>
-        <p>You are logged in, you may close this windows.</p>
+        <p>You are logged in.</p>
+        <p>You may close this window now.</p>
         <form method="post">
             <input type="hidden" name="logout" value="true">
             <button type="submit" name="logout">Logout</button>
@@ -96,7 +97,6 @@ if (!$user) {
         }
 
         &>p {
-            margin-bottom: 4rem;
             text-align: center;
         }
 
@@ -109,6 +109,7 @@ if (!$user) {
             border-radius: 2px;
             background-color: #f5f5f4;
 
+            margin-top: 2rem;
             width: 100%;
             padding: 0.5rem;
 
