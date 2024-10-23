@@ -149,7 +149,7 @@
 				</SettingsItem>
 				<SettingsItem
 					description={'This is the default sorting order that will be used when you visit the site.'}
-					title={'Prefered sort order'}
+					title={'Preferred sort order'}
 				>
 					<Select
 						items={orders}
