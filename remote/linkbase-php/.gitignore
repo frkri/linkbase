@@ -3,3 +3,6 @@ vendor
 
 # Database
 *.db
+
+# Environment
+.env
