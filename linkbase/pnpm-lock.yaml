@@ -45,8 +45,8 @@ importers:
         specifier: ^0.27.4
         version: 0.27.4
       lucide-svelte:
-        specifier: ^0.453.0
-        version: 0.453.0(svelte@5.0.5)
+        specifier: ^0.454.0
+        version: 0.454.0(svelte@5.0.5)
       postcss:
         specifier: ^8.4.47
         version: 8.4.47
@@ -1235,8 +1235,8 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  lucide-svelte@0.453.0:
-    resolution: {integrity: sha512-K+eE2ZeE00ThIEbAmZB3Hq0sVS+1ZLj+7nqtJvN0Xrh/KZnfnEChG+do80sctqXQEE+iG1dA2T+5fVcJS1awfA==}
+  lucide-svelte@0.454.0:
+    resolution: {integrity: sha512-TgW17HI7M8LeFZ3NpaDp1LwPGBGMVjx/x81TtK+AacEQvmJcqetqeJNeBT18NMEJP9+zi/Wt+Zc8mo44K5Uszw==}
     peerDependencies:
       svelte: ^3 || ^4 || ^5.0.0-next.42
 
@@ -1833,7 +1833,7 @@ snapshots:
 
   '@babel/generator@7.17.7':
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.26.0
       jsesc: 2.5.2
       source-map: 0.5.7
     optional: true
@@ -2848,7 +2848,7 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  lucide-svelte@0.453.0(svelte@5.0.5):
+  lucide-svelte@0.454.0(svelte@5.0.5):
     dependencies:
       svelte: 5.0.5
 
